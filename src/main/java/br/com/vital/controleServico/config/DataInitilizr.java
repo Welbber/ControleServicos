@@ -17,8 +17,8 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0){
 
-        Endereco endereco = new Endereco("Sem fim","105","Os destemidos" ,"58110-000", "proximo aos vizinhos", "Perdida","pb");
-        Cliente cliente = new Cliente("Joao Jose", "(83) 9 1234-5678", endereco, "joaojose@gmail.com");
+        Endereco endereco = new Endereco(null, null,"Sem fim","105","Os destemidos" ,"58110-000", "proximo aos vizinhos", "Perdida","pb");
+        Cliente cliente = new Cliente(null,"Joao Jose", "(83) 9 1234-5678", endereco, null, "joaojose@gmail.com", true);
 
         repository.save(cliente);
         System.out.println("CADASTRO TESTE REALIZADO COM SUCESSO");

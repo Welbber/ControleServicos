@@ -23,34 +23,34 @@ public class ClienteService {
 
     @Transactional(readOnly = true)
     public Page<ClienteDTO> findAll(Pageable pageable) {
-        Page<Cliente> result = clienteRepository.findAll(pageable);
+        Page<Cliente> result = clienteRepository.findAllByAtivo(true, pageable);
         return result.map(c -> model.map(c, ClienteDTO.class));
     }
 
     public ClienteDTO findById(Long id) {
-        var cliente = clienteRepository.findById(id);
-
-        if (cliente.isPresent())
-            return model.map(cliente.get(), ClienteDTO.class);
-        return null;
-
+        Cliente cliente = clienteRepository.findByIdAndAtivo(id, true);
+        return model.map(cliente, ClienteDTO.class);
     }
 
-    public ClienteDTO save(Cliente cliente) {
-        return  model.map(clienteRepository.save(cliente), ClienteDTO.class);
+    public ClienteDTO save(ClienteDTO clienteDTO) {
+        Cliente cliente = model.map(clienteDTO, Cliente.class);
+        cliente = clienteRepository.save(cliente);
+        return model.map(cliente, ClienteDTO.class);
     }
 
     public ClienteDTO update(ClienteDTO novoRegistro) {
-        Optional<Cliente> cliente = clienteRepository.findById(novoRegistro.getClienteId());
+        Optional<Cliente> cliente = clienteRepository.findById(novoRegistro.getId());
         if (cliente.isPresent()) {
-            novoRegistro.update(cliente.get());
+            model.map(novoRegistro, cliente.get());
             clienteRepository.save(cliente.get());
-            return novoRegistro;
         }
-        return null;
+        return model.map(cliente.get(), ClienteDTO.class);
     }
 
-    public void delete(Long id) {
-        clienteRepository.deleteById(id);
+    public ClienteDTO delete(Long id) {
+        var cliente = clienteRepository.findById(id);
+        if (cliente.isPresent())
+            cliente.get().setAtivo(false);
+        return model.map(clienteRepository.save(cliente.get()), ClienteDTO.class);
     }
 }

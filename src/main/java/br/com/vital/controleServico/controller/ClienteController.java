@@ -1,11 +1,11 @@
 package br.com.vital.controleServico.controller;
 
 import br.com.vital.controleServico.dto.ClienteDTO;
-import br.com.vital.controleServico.entities.Cliente;
 import br.com.vital.controleServico.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +18,16 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<Page<ClienteDTO>> findAll(Pageable pageable) {
-        Page<ClienteDTO> list = service.findAll(pageable);
-        return ResponseEntity.ok(list);
+        return new ResponseEntity<>(service.findAll(pageable),HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity findById(@PathVariable long id) {
-        ClienteDTO cliente = service.findById(id);
-        return ResponseEntity.ok(cliente);
+        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Cliente cliente) {
+    public ResponseEntity create(@RequestBody ClienteDTO cliente) {
 
         return ResponseEntity.ok(service.save(cliente));
 
@@ -41,8 +39,7 @@ public class ClienteController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity delete(@PathVariable long id) {
-        service.delete(id);
-        return ResponseEntity.ok(200);
+    public ClienteDTO delete(@PathVariable long id) {
+        return service.delete(id);
     }
 }

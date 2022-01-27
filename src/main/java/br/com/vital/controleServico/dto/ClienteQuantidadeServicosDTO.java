@@ -1,6 +1,13 @@
 package br.com.vital.controleServico.dto;
 
-public class ClienteQuantidadeServicosDAO {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClienteQuantidadeServicosDTO {
 
     private String nome;
 

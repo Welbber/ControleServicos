@@ -1,17 +1,14 @@
 package br.com.vital.controleServico.entities;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Enderecos")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Endereco {
 
@@ -21,6 +18,7 @@ public class Endereco {
     private Long id;
 
     @OneToOne(mappedBy = "endereco")
+    @Setter(AccessLevel.PRIVATE)
     private Cliente cliente;
 
     private String rua;
@@ -38,16 +36,5 @@ public class Endereco {
     private String uf;
 
     @Setter(AccessLevel.PRIVATE)
-    private Date dataCadastro;
-
-    public Endereco(String rua, String numero, String bairro, String cep, String complemento, String cidade, String uf) {
-        this.rua = rua;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cep = cep;
-        this.complemento = complemento;
-        this.cidade = cidade;
-        this.uf = uf;
-        this.dataCadastro = new Date();
-    }
+    private final LocalDate dataCadastro = LocalDate.now();
 }

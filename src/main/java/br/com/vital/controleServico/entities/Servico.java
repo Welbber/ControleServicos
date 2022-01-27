@@ -1,18 +1,15 @@
 package br.com.vital.controleServico.entities;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "Servicos")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Servico {
 
@@ -21,7 +18,6 @@ public class Servico {
     @Setter(AccessLevel.PRIVATE)
     private Long id;
 
-    @Column(name = "Descricao_Geral")
     private String descricaoGeral;
 
 
@@ -30,19 +26,12 @@ public class Servico {
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
+    @Setter(AccessLevel.PRIVATE)
     private Veiculo veiculo;
 
     @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
     private List<Item> itens;
 
     @Setter(AccessLevel.PRIVATE)
-    private Date dataCadastro;
-
-    public Servico(String descricaoGeral, StatusServico status, Veiculo veiculo, List<Item> itens) {
-        this.descricaoGeral = descricaoGeral;
-        this.status = status;
-        this.veiculo = veiculo;
-        this.itens = itens;
-        this.dataCadastro = new Date();
-    }
+    private final LocalDate dataCadastro = LocalDate.now();
 }

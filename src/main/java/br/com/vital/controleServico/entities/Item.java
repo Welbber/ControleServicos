@@ -1,19 +1,17 @@
 package br.com.vital.controleServico.entities;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "Itens")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +29,11 @@ public class Item {
     private TipoItem tipo;
 
     @Setter(AccessLevel.PRIVATE)
-    private Date dataCadastro;
+    private final LocalDate dataCadastro = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "servico_id")
+    @Setter(AccessLevel.PRIVATE)
     private Servico servico;
-
-    public Item(String descricao, Double valor, TipoItem tipo, Servico servico) {
-        this.descricao = descricao;
-        this.valor = valor;
-        this.tipo = tipo;
-        this.dataCadastro = new Date();
-        this.servico = servico;
-    }
+    
 }
