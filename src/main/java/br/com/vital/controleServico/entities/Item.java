@@ -35,5 +35,4 @@ public class Item {
     @JoinColumn(name = "servico_id")
     @Setter(AccessLevel.PRIVATE)
     private Servico servico;
-    
 }

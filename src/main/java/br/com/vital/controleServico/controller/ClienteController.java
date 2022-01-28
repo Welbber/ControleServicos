@@ -1,6 +1,7 @@
 package br.com.vital.controleServico.controller;
 
 import br.com.vital.controleServico.dto.ClienteDTO;
+import br.com.vital.controleServico.dto.ClienteQuantidadeServicosDTO;
 import br.com.vital.controleServico.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,11 @@ public class ClienteController {
     @GetMapping(value = "/{id}")
     public ResponseEntity findById(@PathVariable long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/findClienteQuantidadeServico")
+    public ResponseEntity<Page<ClienteQuantidadeServicosDTO>> findClienteQuantidadeServico(Pageable pageable) {
+        return new ResponseEntity<>(service.findClienteQuantidadeServico(pageable),HttpStatus.OK);
     }
 
     @PostMapping

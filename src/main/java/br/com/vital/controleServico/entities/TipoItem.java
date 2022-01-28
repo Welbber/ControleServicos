@@ -1,14 +1,14 @@
 package br.com.vital.controleServico.entities;
 
 public enum TipoItem {
-    PECA(1), SERVICO_EM_GERAL(2), ANALISE(3), LIMPEZA(4), OUTROS(5);
-    private int tipo;
+    PECA("PEÇA"), SERVICO_EM_GERAL("SERVIÇO EM GERAL"), ANALISE("ANÁLISE"), LIMPEZA("LIMPEZA"), OUTROS("OUTROS");
+    private String tipo;
 
-    private TipoItem(int tipo) {
+    private TipoItem(String tipo) {
         this.tipo = tipo;
     }
 
-    public int getTipo() {
+    public String getTipo() {
         return tipo;
     }
 }

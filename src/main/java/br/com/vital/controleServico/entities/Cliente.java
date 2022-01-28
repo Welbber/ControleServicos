@@ -38,7 +38,7 @@ public class Cliente {
 
     private Boolean ativo = true;
 
-    public void adicionaVeiculo(@NotBlank Veiculo veiculo) {
-        this.veiculos.add(veiculo);
+    public Cliente(Long id){
+        this.id = id;
     }
 }

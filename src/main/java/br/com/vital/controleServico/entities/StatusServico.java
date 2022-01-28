@@ -1,15 +1,15 @@
 package br.com.vital.controleServico.entities;
 
 public enum StatusServico {
-    PENDENTE(1), EM_ANDAMENTO(2), CONCLUIDO(3), RETORNO(4);
+    PENDENTE("PENDENTE"), EM_ANDAMENTO("EM ANDAMENTO"), CONCLUIDO("CONCLUÍDO"), RETORNO("RETORNO");
 
-    private int status;
+    private String status;
 
-    private StatusServico(int status) {
+    private StatusServico(String status) {
         this.status = status;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 }

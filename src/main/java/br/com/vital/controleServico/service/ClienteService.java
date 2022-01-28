@@ -1,6 +1,7 @@
 package br.com.vital.controleServico.service;
 
 import br.com.vital.controleServico.dto.ClienteDTO;
+import br.com.vital.controleServico.dto.ClienteQuantidadeServicosDTO;
 import br.com.vital.controleServico.entities.Cliente;
 import br.com.vital.controleServico.repositories.ClienteRepository;
 import org.modelmapper.ModelMapper;
@@ -27,6 +28,7 @@ public class ClienteService {
         return result.map(c -> model.map(c, ClienteDTO.class));
     }
 
+    @Transactional(readOnly = true)
     public ClienteDTO findById(Long id) {
         Cliente cliente = clienteRepository.findByIdAndAtivo(id, true);
         return model.map(cliente, ClienteDTO.class);
@@ -38,6 +40,7 @@ public class ClienteService {
         return model.map(cliente, ClienteDTO.class);
     }
 
+    @Transactional(readOnly = true)
     public ClienteDTO update(ClienteDTO novoRegistro) {
         Optional<Cliente> cliente = clienteRepository.findById(novoRegistro.getId());
         if (cliente.isPresent()) {
@@ -47,10 +50,17 @@ public class ClienteService {
         return model.map(cliente.get(), ClienteDTO.class);
     }
 
+    @Transactional(readOnly = true)
     public ClienteDTO delete(Long id) {
         var cliente = clienteRepository.findById(id);
         if (cliente.isPresent())
             cliente.get().setAtivo(false);
         return model.map(clienteRepository.save(cliente.get()), ClienteDTO.class);
     }
+
+    @Transactional(readOnly = true)
+    public Page<ClienteQuantidadeServicosDTO> findClienteQuantidadeServico(Pageable pageable){
+        return clienteRepository.findClienteQuantidadeServico(pageable);
+    }
+
 }

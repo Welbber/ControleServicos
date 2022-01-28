@@ -22,7 +22,7 @@ public class Servico {
 
 
     @Enumerated(EnumType.STRING)
-    private StatusServico status;
+    private StatusServico status = StatusServico.PENDENTE;
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
@@ -34,4 +34,8 @@ public class Servico {
 
     @Setter(AccessLevel.PRIVATE)
     private final LocalDate dataCadastro = LocalDate.now();
+
+    public Servico(Long id){
+        this.id = id;
+    }
 }

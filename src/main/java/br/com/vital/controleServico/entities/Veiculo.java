@@ -38,8 +38,13 @@ public class Veiculo {
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Servico> servico;
 
+    private Boolean ativo = true;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @Setter(AccessLevel.PRIVATE)
     private Cliente cliente;
+
+    public Veiculo(Long id){
+        this.id = id;
+    }
 }
