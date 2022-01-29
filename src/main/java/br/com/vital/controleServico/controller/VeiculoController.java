@@ -22,6 +22,12 @@ public class VeiculoController {
     public ResponseEntity<Page<VeiculoDTO>> findAll(Pageable pageable) {
         return new ResponseEntity<>(service.findAll(pageable), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<VeiculoDTO> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity create(@RequestBody VeiculoDTO veiculo) {
 

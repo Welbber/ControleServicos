@@ -16,7 +16,6 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.PRIVATE)
     private Long id;
 
     @NotBlank(message = "Nome Cliente não pode ser nulo")
@@ -24,7 +23,7 @@ public class Cliente {
 
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
@@ -41,4 +40,5 @@ public class Cliente {
     public Cliente(Long id){
         this.id = id;
     }
+
 }

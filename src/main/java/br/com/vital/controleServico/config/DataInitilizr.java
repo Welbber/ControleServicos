@@ -4,11 +4,15 @@ import br.com.vital.controleServico.entities.Cliente;
 import br.com.vital.controleServico.entities.Endereco;
 import br.com.vital.controleServico.entities.Veiculo;
 import br.com.vital.controleServico.repositories.ClienteRepository;
+
 import br.com.vital.controleServico.repositories.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.stereotype.Component;
+
+
 
 @Component
 public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent> {
@@ -23,7 +27,7 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
     public void onApplicationEvent(ContextRefreshedEvent arg0){
 
         Endereco endereco = new Endereco(null, null,"Sem fim","105","Os destemidos" ,"58110-000", "proximo aos vizinhos", "Perdida","pb");
-        Cliente cliente = new Cliente(null,"Joao Jose", "(83) 9 1234-5678", endereco, null, "joaojose@gmail.com", true);
+        Cliente cliente = new Cliente(null, "Joao Jose", "(83) 9 1234-5678", endereco, null, "joaojose@gmail.com", true);
 
         Veiculo veiculo = new Veiculo();
 
@@ -40,6 +44,8 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
         veiculo.setCliente(new Cliente(1L));
 
         veiculoRepository.save(veiculo);
+
+
         System.out.println("CADASTRO TESTE REALIZADO COM SUCESSO");
     }
 }

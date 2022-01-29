@@ -23,7 +23,7 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity findById(@PathVariable long id) {
+    public ResponseEntity findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public class ClienteController {
 
     @PutMapping
     public ClienteDTO updateCliente(@RequestBody ClienteDTO cliente) {
-        return service.update(cliente);
+        return service.update(cliente, cliente.getId());
     }
 
     @DeleteMapping(value = "/{id}")
