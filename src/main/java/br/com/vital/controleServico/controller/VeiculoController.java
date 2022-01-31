@@ -1,8 +1,6 @@
 package br.com.vital.controleServico.controller;
 
-import br.com.vital.controleServico.dto.ClienteDTO;
 import br.com.vital.controleServico.dto.VeiculoDTO;
-import br.com.vital.controleServico.service.ClienteService;
 import br.com.vital.controleServico.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +30,10 @@ public class VeiculoController {
     public ResponseEntity create(@RequestBody VeiculoDTO veiculo) {
 
         return ResponseEntity.ok(service.save(veiculo));
+    }
 
+    @PutMapping
+    public ResponseEntity update(@RequestBody VeiculoDTO veiculoDTO) {
+        return ResponseEntity.ok(service.update(veiculoDTO, veiculoDTO.getId()));
     }
 }

@@ -41,4 +41,8 @@ public class Cliente {
         this.id = id;
     }
 
+    public Cliente(Long id, Boolean ativo){
+        this.id = id;
+        this.ativo = ativo;
+    }
 }

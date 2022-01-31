@@ -19,7 +19,7 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<Page<ClienteDTO>> findAll(Pageable pageable) {
-        return new ResponseEntity<>(service.findAll(pageable),HttpStatus.OK);
+        return new ResponseEntity<>(service.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -29,7 +29,7 @@ public class ClienteController {
 
     @GetMapping(value = "/findClienteQuantidadeServico")
     public ResponseEntity<Page<ClienteQuantidadeServicosDTO>> findClienteQuantidadeServico(Pageable pageable) {
-        return new ResponseEntity<>(service.findClienteQuantidadeServico(pageable),HttpStatus.OK);
+        return new ResponseEntity<>(service.findClienteQuantidadeServico(pageable), HttpStatus.OK);
     }
 
     @PostMapping

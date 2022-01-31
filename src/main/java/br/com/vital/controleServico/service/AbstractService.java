@@ -1,6 +1,6 @@
 package br.com.vital.controleServico.service;
 
-import br.com.vital.controleServico.repositories.GenericRepositoryImpl;
+import br.com.vital.controleServico.repositories.GenericRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public abstract class AbstractService<E, D, ID extends Serializable> {
 
-    protected GenericRepositoryImpl<E, ID> repositoryImpl;
+    protected GenericRepository<E, ID> repository;
 
     @Autowired
     protected ModelMapper model;
@@ -26,50 +26,42 @@ public abstract class AbstractService<E, D, ID extends Serializable> {
 
     private Class<E> typeEntity;
 
-    public AbstractService(Class<D> typeDTO, Class<E> typeEntity, GenericRepositoryImpl<E, ID> repositoryImpl) {
+
+    public AbstractService(Class<D> typeDTO, Class<E> typeEntity, GenericRepository<E, ID> repository) {
         this.typeDTO = typeDTO;
         this.typeEntity = typeEntity;
-        this.repositoryImpl = repositoryImpl;
+        this.repository = repository;
     }
 
     @Transactional(readOnly = true)
     public Page<D> findAll(Pageable pageable) {
-        Page<E> result = repositoryImpl.findAll(pageable);
+        Page<E> result = repository.findAllByAtivo(true, pageable);
         return result.map(c -> model.map(c, typeDTO));
     }
 
     @Transactional(readOnly = true)
     public D findById(ID id) {
-        Optional<E> entity = repositoryImpl.findById(id);
+        Optional<E> entity = repository.findByIdAndAtivo(id, true);
         return model.map(entity.get(), typeDTO);
     }
 
-    @Transactional(readOnly = true)
-    @Modifying
+    @Transactional
     public D save(D entityDTO) {
         E entity = model.map(entityDTO, typeEntity);
-        entity = repositoryImpl.save(entity);
+        entity = repository.save(entity);
         return model.map(entity, typeDTO);
     }
 
-    @Transactional(readOnly = true)
     @Modifying
+    @Transactional
     public D update(D newEntityDTO, ID id) {
-        Optional<E> entity = repositoryImpl.findById(id);
+        Optional<E> entity = repository.findById(id);
         if (entity.isPresent()) {
             model.map(newEntityDTO, entity.get());
-            repositoryImpl.save(entity.get());
+            repository.save(entity.get());
         }
         return model.map(entity.get(), typeDTO);
     }
 
-    @Transactional(readOnly = true)
-    @Modifying
-    public D delete(ID id) {
-        Optional<E> entity = repositoryImpl.deleteByIdAndAtivo(id);
-
-        if (entity.isPresent())
-            return model.map(entity.get(), typeDTO);
-        return null;
-    }
+    abstract public D delete(ID id);
 }
