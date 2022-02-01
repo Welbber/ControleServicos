@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Servico {
+public class Servico extends AbstractType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package br.com.vital.controleServico.service;
 
+import br.com.vital.controleServico.entities.AbstractType;
 import br.com.vital.controleServico.repositories.GenericRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,11 @@ import java.io.Serializable;
 import java.util.Optional;
 
 @Service
-public abstract class AbstractService<E, D, ID extends Serializable> {
+public abstract class AbstractService<E extends AbstractType, D, ID extends Serializable> {
 
     protected GenericRepository<E, ID> repository;
+
+    private static final Boolean ATIVO = true;
 
     @Autowired
     protected ModelMapper model;
@@ -35,13 +38,13 @@ public abstract class AbstractService<E, D, ID extends Serializable> {
 
     @Transactional(readOnly = true)
     public Page<D> findAll(Pageable pageable) {
-        Page<E> result = repository.findAllByAtivo(true, pageable);
+        Page<E> result = repository.findAllByAtivo(ATIVO, pageable);
         return result.map(c -> model.map(c, typeDTO));
     }
 
     @Transactional(readOnly = true)
     public D findById(ID id) {
-        Optional<E> entity = repository.findByIdAndAtivo(id, true);
+        Optional<E> entity = repository.findByIdAndAtivo(id, ATIVO);
         return model.map(entity.get(), typeDTO);
     }
 
@@ -63,5 +66,14 @@ public abstract class AbstractService<E, D, ID extends Serializable> {
         return model.map(entity.get(), typeDTO);
     }
 
-    abstract public D delete(ID id);
+    @Modifying
+    @Transactional
+    public D delete(ID id){
+        Optional<E> entity = repository.findByIdAndAtivo(id, ATIVO);
+        if (entity.isPresent()){
+            repository.delete(id);
+            return model.map(entity.get(), typeDTO);
+        }
+        return null;
+    };
 }

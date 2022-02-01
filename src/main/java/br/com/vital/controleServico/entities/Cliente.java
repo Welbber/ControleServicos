@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente {
+public class Cliente extends AbstractType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +35,8 @@ public class Cliente {
     @Setter(AccessLevel.PRIVATE)
     private final LocalDate dataCadastro = LocalDate.now();
 
-    private Boolean ativo = true;
-
     public Cliente(Long id){
         this.id = id;
     }
 
-    public Cliente(Long id, Boolean ativo){
-        this.id = id;
-        this.ativo = ativo;
-    }
 }

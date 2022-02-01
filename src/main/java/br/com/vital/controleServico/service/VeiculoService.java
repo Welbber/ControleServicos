@@ -14,9 +14,4 @@ public class VeiculoService extends AbstractService<Veiculo, VeiculoDTO, Long> {
         super(VeiculoDTO.class, Veiculo.class, repository);
         this.veiculoRepository = repository;
     }
-
-    @Override
-    public VeiculoDTO delete(Long aLong) {
-        return null;
-    }
 }

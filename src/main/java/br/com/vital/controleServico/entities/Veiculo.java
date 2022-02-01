@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Veiculo {
+public class Veiculo extends AbstractType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.PRIVATE)
@@ -37,8 +37,6 @@ public class Veiculo {
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Servico> servico;
-
-    private Boolean ativo = true;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")

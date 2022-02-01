@@ -26,7 +26,7 @@ public class DataInitilizr implements ApplicationListener<ContextRefreshedEvent>
     public void onApplicationEvent(ContextRefreshedEvent arg0){
 
         Endereco endereco = new Endereco(null, null,"Sem fim","105","Os destemidos" ,"58110-000", "proximo aos vizinhos", "Perdida","pb");
-        Cliente cliente = new Cliente(null, "Joao Jose", "(83) 9 1234-5678", endereco, null, "joaojose@gmail.com", true);
+        Cliente cliente = new Cliente(null, "Joao Jose", "(83) 9 1234-5678", endereco, null, "joaojose@gmail.com");
 
         Veiculo veiculo = new Veiculo();
 

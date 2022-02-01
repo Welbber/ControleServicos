@@ -23,16 +23,16 @@ public class ClienteService extends AbstractService<Cliente, ClienteDTO, Long> {
         this.clienteRepository = repository;
     }
 
-    @Override
-    public ClienteDTO delete(Long id) {
-        Optional<Cliente> cliente = repository.findById(id);
-
-        if (cliente.isPresent()) {
-            cliente.get().setAtivo(false);
-            repository.save(cliente.get());
-        }
-        return super.model.map(cliente, ClienteDTO.class);
-    }
+//    @Override
+//    public ClienteDTO delete(Long id) {
+//        Optional<Cliente> cliente = repository.findById(id);
+//
+//        if (cliente.isPresent()) {
+//            cliente.get().setAtivo(false);
+//            repository.save(cliente.get());
+//        }
+//        return super.model.map(cliente, ClienteDTO.class);
+//    }
 
     @Transactional(readOnly = true)
     public Page<ClienteQuantidadeServicosDTO> findClienteQuantidadeServico(Pageable pageable) {
