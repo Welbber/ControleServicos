@@ -1,6 +1,6 @@
 package br.com.vital.controleServico.vehicles.service;
 
-import br.com.vital.controleServico.customers.domain.Cliente;
+import br.com.vital.controleServico.customers.domain.Customer;
 import br.com.vital.controleServico.vehicles.domain.Veiculo;
 import br.com.vital.controleServico.vehicles.dto.VeiculoDTO;
 import br.com.vital.controleServico.vehicles.repository.VeiculoRepository;
@@ -17,7 +17,7 @@ public class VeiculoService {
 
     public VeiculoDTO save(VeiculoDTO veiculoDTO) {
         Veiculo veiculo = new Veiculo(); //model.map(veiculoDTO, Veiculo.class);
-        veiculo.setCliente(new Cliente(veiculoDTO.getIdCliente()));
+        veiculo.setCustomer(new Customer(veiculoDTO.getIdCliente()));
         veiculo = veiculoRepository.save(veiculo);
 //        return model.map(veiculo, VeiculoDTO.class);
         return null;

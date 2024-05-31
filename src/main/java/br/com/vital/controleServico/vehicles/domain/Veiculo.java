@@ -1,6 +1,6 @@
 package br.com.vital.controleServico.vehicles.domain;
 
-import br.com.vital.controleServico.customers.domain.Cliente;
+import br.com.vital.controleServico.customers.domain.Customer;
 import br.com.vital.controleServico.entities.Servico;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -39,7 +39,7 @@ public class Veiculo {
     @ManyToOne(fetch = FetchType.LAZY)
     @Setter
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private Customer customer;
 
     public Veiculo(Long id) {
         this.id = id;

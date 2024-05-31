@@ -23,10 +23,10 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 1.3. Aprovação de Orçamentos pelo Cliente
 
-- **Envio de Orçamentos**: Envio do orçamento para o cliente por e-mail ou SMS para revisão e aprovação.
-- **Aprovação Online**: Capacidade para o cliente aprovar ou recusar o orçamento online.
+- **Envio de Orçamentos**: Envio do orçamento para o customer por e-mail ou SMS para revisão e aprovação.
+- **Aprovação Online**: Capacidade para o customer aprovar ou recusar o orçamento online.
 - **Registro de Aprovações**: Registro das aprovações e recusas dos orçamentos, incluindo data e hora da resposta do
-  cliente.
+  customer.
 
 #### 2. Emissão de Faturas
 
@@ -34,15 +34,15 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 
 - **Criação de Faturas**: Emissão de faturas detalhadas com base nos serviços realizados e peças utilizadas, após a
   conclusão do serviço.
-- **Informações da Fatura**: Inclusão de todas as informações necessárias na fatura, como dados do cliente, descrição
+- **Informações da Fatura**: Inclusão de todas as informações necessárias na fatura, como dados do customer, descrição
   dos serviços, lista de peças, valores e impostos.
-- **Envio de Faturas**: Envio da fatura para o cliente por e-mail ou SMS.
+- **Envio de Faturas**: Envio da fatura para o customer por e-mail ou SMS.
 
 ##### 2.2. Controle de Pagamentos
 
 - **Métodos de Pagamento**: Aceitação de diversos métodos de pagamento, como cartão de crédito, débito, transferência
   bancária e pagamentos em dinheiro.
-- **Parcelamento**: Opção para o cliente parcelar o pagamento da fatura, com registro das condições de parcelamento e
+- **Parcelamento**: Opção para o customer parcelar o pagamento da fatura, com registro das condições de parcelamento e
   datas de vencimento.
 - **Registro de Pagamentos**: Registro de todos os pagamentos recebidos, incluindo data, valor, método de pagamento e
   número de parcelas, se aplicável.
@@ -53,17 +53,17 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 ##### 3.1. Histórico de Faturas
 
 - **Armazenamento de Faturas**: Armazenamento de todas as faturas emitidas, permitindo a consulta a qualquer momento.
-- **Acesso ao Histórico pelo Cliente**: Permitir que o cliente acesse o histórico de faturas pagas e pendentes através
-  do portal do cliente.
+- **Acesso ao Histórico pelo Cliente**: Permitir que o customer acesse o histórico de faturas pagas e pendentes através
+  do portal do customer.
 
 ##### 3.2. Relatórios Financeiros
 
 - **Receita por Período**: Relatórios detalhados sobre a receita gerada em períodos específicos (diário, semanal,
   mensal, anual).
 - **Relatório de Pagamentos**: Relatórios sobre os pagamentos recebidos, incluindo análise de pagamentos por método e
-  por cliente.
+  por customer.
 - **Faturas Pendentes e Atrasadas**: Relatórios sobre faturas pendentes de pagamento e atrasadas, com datas de
-  vencimento e contatos do cliente.
+  vencimento e contatos do customer.
 
 #### 4. Integração com Outros Sistemas
 
@@ -75,7 +75,7 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 4.2. Integração com Sistemas de Pagamento
 
-- **Pagamentos Online**: Integração com gateways de pagamento para permitir pagamentos online diretamente pelo cliente.
+- **Pagamentos Online**: Integração com gateways de pagamento para permitir pagamentos online diretamente pelo customer.
 - **Registro Automático de Transações**: Registro automático de transações de pagamento realizadas online, atualizando o
   status da fatura no sistema.
 
@@ -96,4 +96,4 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 
 Com essas especificações detalhadas, a oficina mecânica pode gerenciar de forma eficiente e precisa a criação de
 orçamentos e a emissão de faturas, garantindo transparência e precisão nos processos financeiros e melhorando a
-experiência do cliente.
+experiência do customer.

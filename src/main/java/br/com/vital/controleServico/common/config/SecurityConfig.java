@@ -1,4 +1,4 @@
-package br.com.vital.controleServico.config;
+package br.com.vital.controleServico.common.config;
 
 
 import org.springframework.context.annotation.Bean;

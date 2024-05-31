@@ -9,9 +9,9 @@ funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 1.1. Detalhamento dos Serviços a Serem Realizados
 
-- **Dados do Cliente**: Informações do cliente (nome, telefone, e-mail) vinculadas à OS.
+- **Dados do Cliente**: Informações do customer (nome, telefone, e-mail) vinculadas à OS.
 - **Informações do Veículo**: Detalhes do veículo (marca, modelo, ano, placa, quilometragem) associadas à OS.
-- **Descrição do Problema/Serviço**: Descrição detalhada do problema relatado ou serviço solicitado pelo cliente.
+- **Descrição do Problema/Serviço**: Descrição detalhada do problema relatado ou serviço solicitado pelo customer.
 - **Tipo de Serviço**: Classificação do tipo de serviço (reparo, manutenção preventiva, diagnóstico, etc.).
 
 ##### 1.2. Alocação de Recursos
@@ -50,20 +50,20 @@ funcionalidade, incluindo suas subfuncionalidades.
 ##### 3.2. Documentação e Arquivamento
 
 - **Relatório de Serviço**: Geração de um relatório detalhado do serviço realizado, incluindo todos os detalhes da OS.
-- **Armazenamento de Histórico**: Armazenamento da OS no histórico do cliente e do veículo para futuras referências.
+- **Armazenamento de Histórico**: Armazenamento da OS no histórico do customer e do veículo para futuras referências.
 
 #### 4. Comunicação com o Cliente
 
 ##### 4.1. Notificações de Status
 
-- **Atualizações Automáticas**: Envio de notificações automáticas ao cliente sobre o status da OS (início do serviço,
+- **Atualizações Automáticas**: Envio de notificações automáticas ao customer sobre o status da OS (início do serviço,
   progresso, conclusão).
-- **Confirmação de Conclusão**: Notificação ao cliente sobre a conclusão do serviço e prontidão para retirada do
+- **Confirmação de Conclusão**: Notificação ao customer sobre a conclusão do serviço e prontidão para retirada do
   veículo.
 
 ##### 4.2. Feedback e Avaliações
 
-- **Solicitação de Feedback**: Envio de solicitações de feedback ao cliente após a conclusão do serviço.
+- **Solicitação de Feedback**: Envio de solicitações de feedback ao customer após a conclusão do serviço.
 - **Registro de Avaliações**: Registro das avaliações e comentários dos clientes para análise de satisfação e melhoria
   contínua.
 
@@ -78,7 +78,7 @@ funcionalidade, incluindo suas subfuncionalidades.
 ##### 5.2. Indicadores de Desempenho
 
 - **Taxa de Conclusão no Prazo**: Indicador da porcentagem de OS concluídas dentro do prazo estimado.
-- **Satisfação do Cliente**: Análise dos níveis de satisfação do cliente com base no feedback recebido.
+- **Satisfação do Cliente**: Análise dos níveis de satisfação do customer com base no feedback recebido.
 
 #### 6. Integração com Outras Funcionalidades
 
@@ -90,7 +90,7 @@ funcionalidade, incluindo suas subfuncionalidades.
 ##### 6.2. Integração com Faturamento
 
 - **Geração de Fatura**: Geração automática de fatura ao concluir a OS, incluindo todos os serviços e peças utilizados.
-- **Histórico Financeiro**: Inclusão dos detalhes financeiros da OS no histórico do cliente.
+- **Histórico Financeiro**: Inclusão dos detalhes financeiros da OS no histórico do customer.
 
 #### 7. Segurança e Controle de Acesso
 

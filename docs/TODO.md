@@ -30,7 +30,7 @@
 
     - Elaboração de orçamentos
         - Cálculo de custos (mão de obra, peças)
-        - Aprovação de orçamentos pelo cliente
+        - Aprovação de orçamentos pelo customer
     - Emissão de faturas
         - Faturamento eletrônico
         - Controle de pagamentos (à vista, parcelado)
@@ -72,7 +72,7 @@
         - Tempo médio de atendimento
     - Análises de desempenho
         - Indicadores chave de performance (KPIs)
-        - Satisfação do cliente
+        - Satisfação do customer
 
 9. Integração com Outros Sistemas
 

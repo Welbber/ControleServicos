@@ -8,7 +8,7 @@ detalhada dessa funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 1.1. Informações Pessoais
 
-- **Nome Completo**: Campo obrigatório para identificar o cliente.
+- **Nome Completo**: Campo obrigatório para identificar o customer.
 - **Endereço**: Inclui rua, número, complemento, bairro, cidade, estado e CEP.
 - **Telefone**: Inclui telefone fixo e celular para contato.
 - **E-mail**: Endereço de e-mail para comunicação e envio de notificações.
@@ -16,15 +16,15 @@ detalhada dessa funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 1.2. Histórico de Serviços Realizados
 
-- **Lista de Serviços**: Registro detalhado de todos os serviços prestados ao cliente, incluindo datas, tipo de serviço
+- **Lista de Serviços**: Registro detalhado de todos os serviços prestados ao customer, incluindo datas, tipo de serviço
   e veículo atendido.
-- **Notas e Comentários**: Espaço para anotações adicionais sobre o atendimento e preferências do cliente.
+- **Notas e Comentários**: Espaço para anotações adicionais sobre o atendimento e preferências do customer.
 
 ##### 1.3. Veículos Associados
 
-- **Cadastro de Veículos**: Associar múltiplos veículos ao cliente com informações como marca, modelo, ano, placa, e
+- **Cadastro de Veículos**: Associar múltiplos veículos ao customer com informações como marca, modelo, ano, placa, e
   cor.
-- **Histórico de Veículos**: Histórico de serviços realizados em cada veículo associado ao cliente.
+- **Histórico de Veículos**: Histórico de serviços realizados em cada veículo associado ao customer.
 
 #### 2. Comunicação com Clientes
 
@@ -45,7 +45,8 @@ detalhada dessa funcionalidade, incluindo suas subfuncionalidades.
 
 ##### 3.1. Portal do Cliente
 
-- **Acesso ao Histórico**: Área onde o cliente pode visualizar o histórico de serviços realizados, orçamentos e faturas.
+- **Acesso ao Histórico**: Área onde o customer pode visualizar o histórico de serviços realizados, orçamentos e
+  faturas.
 - **Agendamento Online**: Ferramenta para agendar serviços diretamente pelo portal.
 - **Atualização de Informações**: Permitir que clientes atualizem suas informações pessoais e de veículos.
 
@@ -60,7 +61,7 @@ detalhada dessa funcionalidade, incluindo suas subfuncionalidades.
 ##### 4.1. Relatórios de Atendimento
 
 - **Relatórios de Satisfação**: Análises baseadas em feedbacks e avaliações dos clientes.
-- **Frequência de Serviços**: Relatórios sobre a frequência com que cada cliente utiliza os serviços da oficina.
+- **Frequência de Serviços**: Relatórios sobre a frequência com que cada customer utiliza os serviços da oficina.
 
 ##### 4.2. Análise de Comportamento do Cliente
 

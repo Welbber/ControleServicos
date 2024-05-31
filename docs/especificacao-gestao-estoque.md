@@ -13,7 +13,7 @@ dessa funcionalidade, incluindo suas subfuncionalidades.
 - **Categoria**: Classificação da peça (ex.: freios, motor, suspensão).
 - **Fornecedor**: Informações sobre o fornecedor da peça (nome, contato).
 - **Preço de Compra**: Custo de aquisição da peça.
-- **Preço de Venda**: Preço de venda da peça para o cliente.
+- **Preço de Venda**: Preço de venda da peça para o customer.
 - **Unidade de Medida**: Unidade de medição da peça (ex.: unidade, litro, metro).
 
 ##### 1.2. Controle de Estoque

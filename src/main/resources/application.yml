@@ -4,7 +4,7 @@ spring:
   profiles:
     active: local
   datasource:
-    username: postgres
+    username: postgres #TODO pegar de variaveis de ambiente
     password: postgres
     url: jdbc:postgresql://localhost:5432/controle-servicos
     driver-class-name: org.postgresql.Driver
@@ -16,10 +16,10 @@ spring:
         batch_versioned_data: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    out-of-order: true
-    baseline-on-migrate: true
+    enabled: true
+    baselineOnMigrate: true
+    validateOnMigrate: true
     locations: classpath:db/migration
-    default-schema: public
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

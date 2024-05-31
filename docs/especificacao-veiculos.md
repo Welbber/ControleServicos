@@ -29,7 +29,7 @@ a especificação detalhada dessa funcionalidade, incluindo suas subfuncionalida
 ##### 2.1. Registro de Quilometragem
 
 - **Atualização de Quilometragem**: Registro da quilometragem atual do veículo após cada serviço.
-- **Alertas de Quilometragem**: Notificações automáticas para o cliente e para a oficina quando a quilometragem atingir
+- **Alertas de Quilometragem**: Notificações automáticas para o customer e para a oficina quando a quilometragem atingir
   pontos críticos para manutenção (ex.: a cada 10.000 km).
 
 ##### 2.2. Sugestões de Serviços com Base no Histórico e Quilometragem
@@ -43,13 +43,13 @@ a especificação detalhada dessa funcionalidade, incluindo suas subfuncionalida
 
 ##### 3.1. Acesso ao Histórico do Veículo
 
-- **Histórico Detalhado**: Área onde o cliente pode visualizar o histórico completo de serviços realizados no veículo.
+- **Histórico Detalhado**: Área onde o customer pode visualizar o histórico completo de serviços realizados no veículo.
 - **Próximos Serviços**: Lista de serviços recomendados e agendados para o futuro.
 
 ##### 3.2. Atualização de Informações do Veículo
 
-- **Editar Informações**: Permitir que o cliente atualize informações básicas do veículo, como quilometragem atual.
-- **Adicionar Novos Veículos**: Funcionalidade para que o cliente possa cadastrar novos veículos em seu perfil.
+- **Editar Informações**: Permitir que o customer atualize informações básicas do veículo, como quilometragem atual.
+- **Adicionar Novos Veículos**: Funcionalidade para que o customer possa cadastrar novos veículos em seu perfil.
 
 #### 4. Relatórios e Análises de Veículos
 
