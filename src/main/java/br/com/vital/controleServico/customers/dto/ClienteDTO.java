@@ -1,6 +1,9 @@
-package br.com.vital.controleServico.dto;
+package br.com.vital.controleServico.customers.dto;
 
-import lombok.*;
+import br.com.vital.controleServico.dto.EnderecoDTO;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 

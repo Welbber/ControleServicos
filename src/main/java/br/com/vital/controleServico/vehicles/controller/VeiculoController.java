@@ -1,9 +1,7 @@
-package br.com.vital.controleServico.controller;
+package br.com.vital.controleServico.vehicles.controller;
 
-import br.com.vital.controleServico.dto.ClienteDTO;
-import br.com.vital.controleServico.dto.VeiculoDTO;
-import br.com.vital.controleServico.service.ClienteService;
-import br.com.vital.controleServico.service.VeiculoService;
+import br.com.vital.controleServico.vehicles.dto.VeiculoDTO;
+import br.com.vital.controleServico.vehicles.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +20,7 @@ public class VeiculoController {
     public ResponseEntity<Page<VeiculoDTO>> findAll(Pageable pageable) {
         return new ResponseEntity<>(service.findAll(pageable), HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity create(@RequestBody VeiculoDTO veiculo) {
 

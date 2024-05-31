@@ -1,4 +1,4 @@
-package br.com.vital.controleServico.dto;
+package br.com.vital.controleServico.vehicles.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,15 +1,14 @@
 package br.com.vital.controleServico.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteQuantidadeServicosDTO  {
+public class ClienteQuantidadeServicosDTO {
 
     private Long id;
 
