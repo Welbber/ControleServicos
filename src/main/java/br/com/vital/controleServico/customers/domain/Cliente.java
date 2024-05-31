@@ -24,7 +24,7 @@ public class Cliente {
     private String telefone;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private br.com.vital.controleServico.customers.domain.Endereco endereco;
+    private Endereco endereco;
 
 
     private String email;
