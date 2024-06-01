@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
 
+@Builder
 @Getter
 @Entity
 @DynamicUpdate
@@ -52,4 +53,23 @@ public class Customer {
         this.id = id;
     }
 
+    public Customer merge(Customer customer) {
+        this.name = customer.name;
+        this.documentNumber = customer.documentNumber;
+        this.email = customer.email;
+        this.phoneNumber = customer.phoneNumber;
+        this.updatedAt = ZonedDateTime.now();
+        this.address = customer.address;
+        return this;
+    }
+
+    public void active() {
+        this.active = true;
+        this.updatedAt = ZonedDateTime.now();
+    }
+
+    public void inactive() {
+        this.active = false;
+        this.updatedAt = ZonedDateTime.now();
+    }
 }

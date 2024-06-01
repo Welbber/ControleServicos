@@ -1,6 +1,8 @@
 package br.com.vital.controleServico.common.controller;
 
+import br.com.vital.controleServico.common.exception.CustomerAlreadyExistsException;
 import br.com.vital.controleServico.common.exception.UnauthorizedException;
+import br.com.vital.controleServico.customers.exception.CustomerNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +23,23 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
     }
 
+    @ExceptionHandler({
+            CustomerNotFoundException.class
+    })
+    public ResponseEntity<Object> handleArgumentStateNotFound(final RuntimeException ex) {
+        final var apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        log.error(apiError.toString());
+        return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
+    }
 
+
+    @ExceptionHandler({
+            CustomerAlreadyExistsException.class
+    })
+    public ResponseEntity<Object> handleArgumentStateBadRequest(final RuntimeException ex) {
+        final var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        log.error(apiError.toString());
+        return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
+    }
+    
 }

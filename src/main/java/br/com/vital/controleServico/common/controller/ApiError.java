@@ -1,6 +1,6 @@
 package br.com.vital.controleServico.common.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class ApiError {
 
     private Integer code;
 
-    @JsonIgnore
+    @JsonIgnoreProperties
     private HttpStatus status;
 
     public ApiError(final HttpStatus status,

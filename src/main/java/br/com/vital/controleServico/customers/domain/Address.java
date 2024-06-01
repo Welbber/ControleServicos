@@ -1,11 +1,9 @@
 package br.com.vital.controleServico.customers.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Builder
 @Getter
 @Entity
 @Table(name = "address")
