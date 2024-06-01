@@ -9,5 +9,3 @@ tables:
   test:
     tablesIgnoredOnTruncate: >
       flyway_schema_history,
-      customers,
-      address

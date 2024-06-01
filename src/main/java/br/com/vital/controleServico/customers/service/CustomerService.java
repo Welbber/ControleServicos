@@ -62,6 +62,7 @@ public class CustomerService {
 
     @Transactional
     public CustomerDTO update(CustomerDTO customerDTO) {
+        //TODO: Implementar regra de validação para saber se existe outro email
         log.info("Update received customer to save: {}", customerDTO);
         var optionalCustomer = repository.findById(customerDTO.id());
         var newCustomer = CustomerMapper.toCustomer(customerDTO);

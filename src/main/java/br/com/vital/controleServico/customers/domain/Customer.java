@@ -1,5 +1,6 @@
 package br.com.vital.controleServico.customers.domain;
 
+import br.com.vital.controleServico.vehicles.domain.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsExclude;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -49,13 +51,17 @@ public class Customer {
     private ZonedDateTime updatedAt;
 
 
+    @EqualsExclude
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private List<Vehicle> vehicles;
+
     public Customer(Long id) {
         this.id = id;
     }
 
     public Customer merge(Customer customer) {
         this.name = customer.name;
-        this.documentNumber = customer.documentNumber;
         this.email = customer.email;
         this.phoneNumber = customer.phoneNumber;
         this.updatedAt = ZonedDateTime.now();
