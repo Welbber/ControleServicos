@@ -32,7 +32,7 @@ public class CustomerService {
         var customers = customerCriteriaRepository.findAll(filters, pageable);
         if (customers.isEmpty()) {
             log.info("Customer list is empty");
-            return new SliceImpl<>(List.of());
+            return new SliceImpl<>(List.of(), pageable, false);
         }
 
         log.info("Customer list found {}", customers.getContent());

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Repository
@@ -39,11 +40,11 @@ public class CustomerCriteriaRepository {
         }
 
         if (Objects.nonNull(filter.getName())) {
-            filters.add(builder.like(builder.upper(root.get(NAME)), filter.getName().toUpperCase()));
+            filters.add(builder.like(builder.lower(root.get(NAME)), "%" + filter.getName().toLowerCase(Locale.ROOT) + "%"));
         }
 
         if (Objects.nonNull(filter.getEmail())) {
-            filters.add(builder.like(builder.upper(root.get(EMAIL)), filter.getEmail().toUpperCase()));
+            filters.add(builder.like(builder.lower(root.get(EMAIL)), "%" + filter.getEmail().toLowerCase(Locale.ROOT) + "%"));
         }
 
         query.orderBy(builder.asc(root.get(NAME)));
