@@ -5,13 +5,17 @@ import br.com.vital.controleServico.vehicles.dto.VehicleFilterDTO;
 import br.com.vital.controleServico.vehicles.exception.VehicleAlreadyExistsException;
 import br.com.vital.controleServico.vehicles.exception.VehicleNotFoundException;
 import br.com.vital.controleServico.vehicles.mapper.VehicleMapper;
+import br.com.vital.controleServico.vehicles.repository.VehicleCriteriaRepository;
 import br.com.vital.controleServico.vehicles.repository.VeiculoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Slf4j
@@ -20,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class VehicleService {
 
     private final VeiculoRepository repository;
+    private final VehicleCriteriaRepository vehicleCriteriaRepository;
 
     @Transactional
     public VehicleDTO save(VehicleDTO vehicleDTO) {
@@ -33,11 +38,6 @@ public class VehicleService {
         return VehicleMapper.toVehicleDTO(vehicle);
     }
 
-//    public Page<VehicleDTO> findAll(Pageable pageable) {
-//        Page<Vehicle> result = repository.findAll(pageable);
-//        return null;//result.map(v -> model.map(v, VeiculoDTO.class));
-//    }
-
     @Transactional(readOnly = true)
     public VehicleDTO findById(Long id) {
         log.info("Find vehicle by id: {}", id);
@@ -46,7 +46,34 @@ public class VehicleService {
                 .orElseThrow(VehicleNotFoundException::new);
     }
 
-    public Slice<VehicleDTO> findAll(VehicleFilterDTO filters, PageRequest name) {
-        return null;
+    public Slice<VehicleDTO> findAll(VehicleFilterDTO filters, PageRequest pageable) {
+        log.info("Find all vehicles pageable: {} and filters: {}", pageable, filters);
+        var vehicles = vehicleCriteriaRepository.findAll(filters, pageable);
+        if (vehicles.isEmpty()) {
+            log.info("Vehicle list is empty");
+            return new SliceImpl<>(List.of(), pageable, false);
+        }
+
+        log.info("Vehicles list found {}", vehicles.getContent());
+        return vehicles.map(VehicleMapper::toVehicleDTO);
+    }
+
+    public List<VehicleDTO> findAllByCustomer(Long customerId) {
+        log.info("Find all vehicles by customer id: {}", customerId);
+        var vehicles = repository.findByCustomerId(customerId);
+        if (vehicles.isEmpty()) {
+            log.info("Vehicle list is empty for Customer: {}", customerId);
+            return List.of();
+        }
+
+        log.info("Vehicles list found {} for Customer: {}", vehicles, customerId);
+        return vehicles.stream().map(VehicleMapper::toVehicleDTO).toList();
+    }
+
+    @Transactional
+    public Boolean delete(Long id) {
+        log.info("Delete received vehicle by id: {}", id);
+        repository.deleteById(id);
+        return true;
     }
 }

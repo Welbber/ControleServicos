@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/vehicles")
@@ -35,6 +37,11 @@ public class VehicleController {
         return new ResponseEntity<>(service.findAll(filters, PageRequest.of(page, size, Sort.by("year"))), HttpStatus.OK);
     }
 
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<VehicleDTO>> findAll(@PathVariable(name = "id") Long customerId) {
+        return new ResponseEntity<>(service.findAllByCustomer(customerId), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<VehicleDTO> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
@@ -45,4 +52,8 @@ public class VehicleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(vehicleDTO));
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable long id) {
+        return ResponseEntity.ok().body(service.delete(id));
+    }
 }

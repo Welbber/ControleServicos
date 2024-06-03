@@ -4,6 +4,7 @@ import br.com.vital.controleServico.vehicles.domain.Vehicle;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Repository
@@ -22,5 +23,7 @@ public interface VeiculoRepository extends Repository<Vehicle, Long> {
     boolean existByLicensePlate(String licensePlate);
 
     void deleteById(long id);
+
+    List<Vehicle> findByCustomerId(Long customerId);
 
 }
