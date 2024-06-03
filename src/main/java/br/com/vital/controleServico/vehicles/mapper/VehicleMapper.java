@@ -18,7 +18,8 @@ public class VehicleMapper {
                 vehicle.getModel(),
                 vehicle.getLicensePlate(),
                 vehicle.getColor(),
-                vehicle.getYear()
+                vehicle.getYear(),
+                vehicle.getFuelType()
         );
     }
 
@@ -35,6 +36,7 @@ public class VehicleMapper {
                 .color(vehicleDTO.color())
                 .year(vehicleDTO.year())
                 .licensePlate(vehicleDTO.plate())
+                .fuelType(vehicleDTO.fuelType())
                 .build();
     }
 
