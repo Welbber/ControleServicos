@@ -3,11 +3,14 @@ package br.com.vital.controleServico;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class ControleServicoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ControleServicoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        SpringApplication.run(ControleServicoApplication.class, args);
+    }
 
 }

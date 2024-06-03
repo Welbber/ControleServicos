@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 3
+  flyway:
+    locations: classpath:db/test-migration,classpath:db/migration
+
+tables:
+  test:
+    tablesIgnoredOnTruncate: >
+      flyway_schema_history,
+      customers,
+      address
