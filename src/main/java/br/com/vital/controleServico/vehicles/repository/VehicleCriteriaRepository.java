@@ -1,7 +1,7 @@
-package br.com.vital.controleServico.customers.repository;
+package br.com.vital.controleServico.vehicles.repository;
 
-import br.com.vital.controleServico.customers.domain.Customer;
-import br.com.vital.controleServico.customers.dto.CustomerFilterDTO;
+import br.com.vital.controleServico.vehicles.domain.Vehicle;
+import br.com.vital.controleServico.vehicles.dto.VehicleFilterDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -21,33 +21,39 @@ import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomerCriteriaRepository {
+public class VehicleCriteriaRepository {
 
-    public static final String DOCUMENT_NUMBER = "documentNumber";
-    public static final String EMAIL = "email";
-    public static final String NAME = "name";
+    public static final String LICENSE_PLATE = "licensePlate";
+    public static final String BRAND = "brand";
+    public static final String MODEL = "model";
+    public static final String YEAR = "year";
     private final EntityManager entityManager;
 
-    public Slice<Customer> findAll(CustomerFilterDTO filter, Pageable pageable) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Customer> query = builder.createQuery(Customer.class);
 
-        Root<Customer> root = query.from(Customer.class);
+    public Slice<Vehicle> findAll(VehicleFilterDTO filter, Pageable pageable) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Vehicle> query = builder.createQuery(Vehicle.class);
+
+        Root<Vehicle> root = query.from(Vehicle.class);
 
         List<Predicate> filters = new ArrayList<>();
-        if (Objects.nonNull(filter.getDocumentNumber())) {
-            filters.add(builder.equal(root.get(DOCUMENT_NUMBER), filter.getDocumentNumber()));
+        if (Objects.nonNull(filter.getBrand())) {
+            filters.add(builder.equal(builder.lower(root.get(BRAND)), filter.getBrand().toLowerCase(Locale.ROOT)));
         }
 
-        if (Objects.nonNull(filter.getName())) {
-            filters.add(builder.like(builder.lower(root.get(NAME)), "%" + filter.getName().toLowerCase(Locale.ROOT) + "%"));
+        if (Objects.nonNull(filter.getPlate())) {
+            filters.add(builder.equal(builder.lower(root.get(LICENSE_PLATE)), "%" + filter.getPlate().toLowerCase(Locale.ROOT) + "%"));
         }
 
-        if (Objects.nonNull(filter.getEmail())) {
-            filters.add(builder.like(builder.lower(root.get(EMAIL)), "%" + filter.getEmail().toLowerCase(Locale.ROOT) + "%"));
+        if (Objects.nonNull(filter.getYear())) {
+            filters.add(builder.equal(root.get(YEAR), filter.getYear()));
         }
 
-        query.orderBy(builder.asc(root.get(NAME)));
+        if (Objects.nonNull(filter.getModel())) {
+            filters.add(builder.like(builder.lower(root.get(MODEL)), "%" + filter.getModel().toLowerCase(Locale.ROOT) + "%"));
+        }
+
+        query.orderBy(builder.asc(root.get(LICENSE_PLATE)));
         query.where(filters.toArray(new Predicate[0]));
         query.distinct(true);
 

@@ -14,9 +14,9 @@ public class CustomerMapper {
         return new CustomerDTO(
                 customer.getId(),
                 customer.getName(),
+                customer.getPhoneNumber(),
                 customer.getEmail(),
                 customer.getDocumentNumber(),
-                customer.getPhoneNumber(),
                 getAddressDTO(customer.getAddress()));
     }
 
@@ -39,7 +39,7 @@ public class CustomerMapper {
                 .state(address.state())
                 .zipCode(address.zipCode())
                 .number(address.number())
-                .streetName(address.street())
+                .street(address.street())
                 .district(address.district())
                 .build();
     }
@@ -47,7 +47,7 @@ public class CustomerMapper {
     private static AddressDTO getAddressDTO(Address address) {
         return new AddressDTO(
                 address.getId(),
-                address.getStreetName(),
+                address.getStreet(),
                 address.getNumber(),
                 address.getComplements(),
                 address.getCity(),

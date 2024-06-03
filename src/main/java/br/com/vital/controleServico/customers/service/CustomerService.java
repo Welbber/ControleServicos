@@ -32,7 +32,7 @@ public class CustomerService {
         var customers = customerCriteriaRepository.findAll(filters, pageable);
         if (customers.isEmpty()) {
             log.info("Customer list is empty");
-            return new SliceImpl<>(List.of());
+            return new SliceImpl<>(List.of(), pageable, false);
         }
 
         log.info("Customer list found {}", customers.getContent());
@@ -62,6 +62,7 @@ public class CustomerService {
 
     @Transactional
     public CustomerDTO update(CustomerDTO customerDTO) {
+        //TODO: Implementar regra de validação para saber se existe outro email
         log.info("Update received customer to save: {}", customerDTO);
         var optionalCustomer = repository.findById(customerDTO.id());
         var newCustomer = CustomerMapper.toCustomer(customerDTO);
@@ -76,6 +77,7 @@ public class CustomerService {
     @Transactional
     public Boolean delete(Long id) {
         log.info("Delete received customer by id: {}", id);
+        //TODO: implementar validação para saber se exsite um registro com id passado
         repository.deleteById(id);
         return true;
     }

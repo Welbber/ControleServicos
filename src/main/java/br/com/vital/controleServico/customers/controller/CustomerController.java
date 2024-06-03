@@ -48,12 +48,12 @@ public class CustomerController {
         return ResponseEntity.ok().body(service.update(customerDTO));
     }
 
-    @PutMapping("{id}/active")
+    @PatchMapping("{id}/active")
     public ResponseEntity<Boolean> activate(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.activeCustomer(id, Boolean.TRUE));
     }
 
-    @PutMapping("{id}/inactive")
+    @PatchMapping("{id}/inactive")
     public ResponseEntity<Boolean> inactive(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.inactiveCustomer(id, Boolean.FALSE));
     }

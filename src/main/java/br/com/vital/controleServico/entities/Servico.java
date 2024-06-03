@@ -1,6 +1,6 @@
 package br.com.vital.controleServico.entities;
 
-import br.com.vital.controleServico.vehicles.domain.Veiculo;
+import br.com.vital.controleServico.vehicles.domain.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +26,7 @@ public class Servico {
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     @Setter(AccessLevel.PRIVATE)
-    private Veiculo veiculo;
+    private Vehicle vehicle;
     @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
     private List<Item> itens;
 
