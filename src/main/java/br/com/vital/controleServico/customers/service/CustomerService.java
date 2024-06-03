@@ -77,6 +77,7 @@ public class CustomerService {
     @Transactional
     public Boolean delete(Long id) {
         log.info("Delete received customer by id: {}", id);
+        //TODO: implementar validação para saber se exsite um registro com id passado
         repository.deleteById(id);
         return true;
     }
