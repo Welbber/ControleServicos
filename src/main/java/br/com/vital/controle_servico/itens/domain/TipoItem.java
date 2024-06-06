@@ -1,4 +1,4 @@
-package br.com.vital.controle_servico.entities;
+package br.com.vital.controle_servico.itens.domain;
 
 public enum TipoItem {
     PECA("PEÇA"), SERVICO_EM_GERAL("SERVIÇO EM GERAL"), ANALISE("ANÁLISE"), LIMPEZA("LIMPEZA"), OUTROS("OUTROS");
