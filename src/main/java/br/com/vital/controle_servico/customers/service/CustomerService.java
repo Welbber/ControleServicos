@@ -1,8 +1,8 @@
 package br.com.vital.controle_servico.customers.service;
 
-import br.com.vital.controle_servico.common.exception.CustomerAlreadyExistsException;
 import br.com.vital.controle_servico.customers.dto.CustomerDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerFilterDTO;
+import br.com.vital.controle_servico.customers.exception.CustomerAlreadyExistsException;
 import br.com.vital.controle_servico.customers.exception.CustomerNotFoundException;
 import br.com.vital.controle_servico.customers.mapper.CustomerMapper;
 import br.com.vital.controle_servico.customers.repository.CustomerCriteriaRepository;

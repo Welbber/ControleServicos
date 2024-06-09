@@ -1,14 +1,14 @@
 package br.com.vital.controle_servico.itens.domain;
 
-public enum TipoItem {
+import lombok.Getter;
+
+@Getter
+public enum ItemType {
     PECA("PEÇA"), SERVICO_EM_GERAL("SERVIÇO EM GERAL"), ANALISE("ANÁLISE"), LIMPEZA("LIMPEZA"), OUTROS("OUTROS");
-    private String tipo;
+    private final String type;
 
-    private TipoItem(String tipo) {
-        this.tipo = tipo;
+    ItemType(String type) {
+        this.type = type;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
 }

@@ -1,5 +1,6 @@
 package br.com.vital.controle_servico.itens.domain;
 
+import br.com.vital.controle_servico.itens.dto.ItemRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,10 +10,12 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Getter
+@ToString
 @Builder
 @Entity
 @Table(name = "itens")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Item {
 
@@ -25,7 +28,7 @@ public class Item {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private TipoItem type;
+    private ItemType type;
 
     private String provider;//Fornecedor
 
@@ -50,4 +53,17 @@ public class Item {
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
+    private Boolean active;
+
+    public void merger(ItemRequestDTO itemRequestDTO) {
+        this.code = itemRequestDTO.code();
+        this.description = itemRequestDTO.description();
+        this.type = itemRequestDTO.type();
+        this.provider = itemRequestDTO.provider();
+        this.purchaseAmount = itemRequestDTO.purchaseAmount();
+        this.saleAmount = itemRequestDTO.saleAmount();
+        this.quantity = itemRequestDTO.quantity();
+        this.measurementType = itemRequestDTO.measurementType();
+        this.updatedAt = ZonedDateTime.now();
+    }
 }
