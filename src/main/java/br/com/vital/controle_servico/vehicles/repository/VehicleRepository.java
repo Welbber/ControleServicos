@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Repository
-public interface VeiculoRepository extends Repository<Vehicle, Long> {
+public interface VehicleRepository extends Repository<Vehicle, Long> {
 
     //TODO: refatora para não retornar todos os dados do customer apenas ID e Nome
     Optional<Vehicle> findById(Long id);
@@ -25,5 +25,5 @@ public interface VeiculoRepository extends Repository<Vehicle, Long> {
     void deleteById(long id);
 
     List<Vehicle> findByCustomerId(Long customerId);
-
+    
 }

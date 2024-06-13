@@ -8,7 +8,4 @@ public interface OrderServiceRepository extends Repository<OrderService, Long> {
 
     OrderService saveAndFlush(OrderService orderService);
 
-    OrderService findById(Long id);
-
-
 }

@@ -6,7 +6,7 @@ import br.com.vital.controle_servico.vehicles.exception.VehicleAlreadyExistsExce
 import br.com.vital.controle_servico.vehicles.exception.VehicleNotFoundException;
 import br.com.vital.controle_servico.vehicles.mapper.VehicleMapper;
 import br.com.vital.controle_servico.vehicles.repository.VehicleCriteriaRepository;
-import br.com.vital.controle_servico.vehicles.repository.VeiculoRepository;
+import br.com.vital.controle_servico.vehicles.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VehicleService {
 
-    private final VeiculoRepository repository;
+    private final VehicleRepository repository;
     private final VehicleCriteriaRepository vehicleCriteriaRepository;
 
     @Transactional

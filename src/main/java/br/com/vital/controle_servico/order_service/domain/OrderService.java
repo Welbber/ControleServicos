@@ -9,7 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 
 @Builder
@@ -18,7 +20,7 @@ import java.time.ZonedDateTime;
 @Table(name = "order_service")
 @DynamicUpdate
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderService {
 
@@ -45,8 +47,11 @@ public class OrderService {
 
     private BigDecimal amount;
 
+    @Column(name = "quantity_itens")
+    private Integer quantityItems;
+
     @Column(name = "km_vehicle_at")
-    private String kmVehicleAt;
+    private Integer kmVehicleAt;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -56,4 +61,18 @@ public class OrderService {
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
+    @Column(name = "date_start")
+    private LocalDate dateStart;
+
+    @Column(name = "date_end")
+    private LocalDate dateEnd;
+
+    public void addCustomer(Customer customer) {
+        Objects.requireNonNull(customer, "O Cliente não foi localizado, tente novamente.");
+        this.customer = customer;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 }

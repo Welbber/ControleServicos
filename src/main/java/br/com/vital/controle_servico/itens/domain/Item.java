@@ -55,6 +55,10 @@ public class Item {
 
     private Boolean active;
 
+    public Item(Long id) {
+        this.id = id;
+    }
+
     public void merger(ItemRequestDTO itemRequestDTO) {
         this.code = itemRequestDTO.code();
         this.description = itemRequestDTO.description();
@@ -66,4 +70,5 @@ public class Item {
         this.measurementType = itemRequestDTO.measurementType();
         this.updatedAt = ZonedDateTime.now();
     }
+
 }
