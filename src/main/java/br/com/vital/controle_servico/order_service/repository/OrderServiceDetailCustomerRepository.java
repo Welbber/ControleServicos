@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -24,6 +25,7 @@ public class OrderServiceDetailCustomerRepository {
     private final EntityManager manager;
     private final ObjectMapper objectMapper;
 
+    @Transactional(readOnly = true)
     public DetailOrderServiceResponseDTO findByOrderServiceId(Long orderServiceId) {
         Session session = manager.unwrap(Session.class);
         String sql = """

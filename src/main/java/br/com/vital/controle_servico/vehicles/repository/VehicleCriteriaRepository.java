@@ -1,17 +1,15 @@
 package br.com.vital.controle_servico.vehicles.repository;
 
+import br.com.vital.controle_servico.common.repository.CriteriaRepository;
 import br.com.vital.controle_servico.vehicles.domain.Vehicle;
 import br.com.vital.controle_servico.vehicles.dto.VehicleFilterDTO;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,16 +18,17 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Repository
-@RequiredArgsConstructor
-public class VehicleCriteriaRepository {
+public class VehicleCriteriaRepository extends CriteriaRepository {
 
     public static final String LICENSE_PLATE = "licensePlate";
     public static final String BRAND = "brand";
     public static final String MODEL = "model";
     public static final String YEAR = "year";
-    private final EntityManager entityManager;
 
-
+    public VehicleCriteriaRepository(EntityManager entityManager) {
+        super(entityManager);
+    }
+    
     public Slice<Vehicle> findAll(VehicleFilterDTO filter, Pageable pageable) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Vehicle> query = builder.createQuery(Vehicle.class);
@@ -58,17 +57,6 @@ public class VehicleCriteriaRepository {
         query.distinct(true);
 
         return getSlicedResult(query, pageable);
-    }
-
-    private <T> SliceImpl<T> getSlicedResult(final CriteriaQuery<T> query, final Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        final TypedQuery<T> typedQuery = entityManager.createQuery(query);
-        typedQuery.setMaxResults(pageSize + 1);
-
-        final List<T> resultList = typedQuery.getResultList();
-        boolean hasNext = resultList.size() > pageSize;
-
-        return new SliceImpl<>(hasNext ? resultList.subList(0, pageSize) : resultList, pageable, hasNext);
     }
 
 }

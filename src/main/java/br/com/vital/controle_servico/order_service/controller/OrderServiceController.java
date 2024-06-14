@@ -7,7 +7,6 @@ import br.com.vital.controle_servico.order_service.dto.OrderServiceFilterDTO;
 import br.com.vital.controle_servico.order_service.dto.OrderServiceRequestDTO;
 import br.com.vital.controle_servico.order_service.dto.OrderServiceResponseDTO;
 import br.com.vital.controle_servico.order_service.service.DetailOrderServiceService;
-import br.com.vital.controle_servico.order_service.service.FindOrderServiceService;
 import br.com.vital.controle_servico.order_service.service.NewOrderServiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ public class OrderServiceController {
 
     private final NewOrderServiceService newOrderServiceService;
     private final DetailOrderServiceService detailOrderServiceService;
-    private final FindOrderServiceService findOrderServiceService;
 
     @PostMapping("/customer/{customerId}")
     public ResponseEntity<OrderServiceResponseDTO> createOrder(@PathVariable("customerId") Long customerId, @Valid @RequestBody OrderServiceRequestDTO order) {
@@ -52,7 +50,7 @@ public class OrderServiceController {
                 .status(status)
                 .licensePlate(plate)
                 .build();
-        return new ResponseEntity<>(findOrderServiceService.findAll(filters, PageRequest.of(page, size, Sort.by("description"))), HttpStatus.OK);
+        return new ResponseEntity<>(detailOrderServiceService.findAll(filters, PageRequest.of(page, size, Sort.by("description"))), HttpStatus.OK);
     }
 
 

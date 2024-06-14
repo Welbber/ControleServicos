@@ -7,5 +7,4 @@ import org.springframework.data.repository.Repository;
 public interface OrderServiceRepository extends Repository<OrderService, Long> {
 
     OrderService saveAndFlush(OrderService orderService);
-
 }
