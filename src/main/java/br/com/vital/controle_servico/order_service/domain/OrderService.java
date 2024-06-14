@@ -75,4 +75,30 @@ public class OrderService {
     public void addVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
+
+    public void changeStatus(OrderServiceStatus newStatus) {
+        if (isCanChangeStatus(newStatus)) {
+            throw new IllegalStateException("Não é permitido regredir o status.");
+        }
+        if (newStatus == this.status) {
+            throw new IllegalStateException("Não é permitido atualizar o status para o mesmo.");
+        }
+        this.status = newStatus;
+        this.updatedAt = ZonedDateTime.now();
+    }
+
+    private boolean isCanChangeStatus(OrderServiceStatus newStatus) {
+        var isReturnNewStatus = newStatus == OrderServiceStatus.RETURN;
+        var isActualStatusReturn = this.status == OrderServiceStatus.RETURN;
+        return !isReturnNewStatus && (!isActualStatusReturn && newStatus.ordinal() < this.status.ordinal());
+    }
+
+    public void closeOrder(OrderServiceStatus newStatus, LocalDate dateEnd) {
+        if (newStatus == OrderServiceStatus.COMPLETED && Objects.isNull(dateEnd)) {
+            throw new IllegalStateException("Não é permitido concluir uma Ordem sem definir a data de conclusão.");
+        }
+        this.dateEnd = dateEnd;
+        this.updatedAt = ZonedDateTime.now();
+    }
+
 }

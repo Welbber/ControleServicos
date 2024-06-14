@@ -2,12 +2,10 @@ package br.com.vital.controle_servico.order_service.controller;
 
 import br.com.vital.controle_servico.order_service.domain.OrderServiceStatus;
 import br.com.vital.controle_servico.order_service.domain.OrderServiceType;
-import br.com.vital.controle_servico.order_service.dto.DetailOrderServiceResponseDTO;
-import br.com.vital.controle_servico.order_service.dto.OrderServiceFilterDTO;
-import br.com.vital.controle_servico.order_service.dto.OrderServiceRequestDTO;
-import br.com.vital.controle_servico.order_service.dto.OrderServiceResponseDTO;
+import br.com.vital.controle_servico.order_service.dto.*;
 import br.com.vital.controle_servico.order_service.service.DetailOrderServiceService;
 import br.com.vital.controle_servico.order_service.service.NewOrderServiceService;
+import br.com.vital.controle_servico.order_service.service.UpdateStatusOrderServiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +22,7 @@ public class OrderServiceController {
 
     private final NewOrderServiceService newOrderServiceService;
     private final DetailOrderServiceService detailOrderServiceService;
+    private final UpdateStatusOrderServiceService updateStatusOrderServiceService;
 
     @PostMapping("/customer/{customerId}")
     public ResponseEntity<OrderServiceResponseDTO> createOrder(@PathVariable("customerId") Long customerId, @Valid @RequestBody OrderServiceRequestDTO order) {
@@ -53,5 +52,9 @@ public class OrderServiceController {
         return new ResponseEntity<>(detailOrderServiceService.findAll(filters, PageRequest.of(page, size, Sort.by("description"))), HttpStatus.OK);
     }
 
+    @PatchMapping("/status")
+    public ResponseEntity<OrderServiceUpdateStatusResponseDTO> updateStatus(@Valid @RequestBody OrderServiceUpdateStatusRequestDTO requestDTO) {
+        return ResponseEntity.ok().body(updateStatusOrderServiceService.updateStatusOrCloseOrder(requestDTO));
+    }
 
 }

@@ -5,6 +5,7 @@ import br.com.vital.controle_servico.customers.exception.CustomerAlreadyExistsEx
 import br.com.vital.controle_servico.customers.exception.CustomerNotFoundException;
 import br.com.vital.controle_servico.itens.exception.ItemAlreadyExistsException;
 import br.com.vital.controle_servico.itens.exception.ItemNotFoundException;
+import br.com.vital.controle_servico.order_service.exception.OrderServiceNotFoundException;
 import br.com.vital.controle_servico.order_service.exception.VehicleNotBelongToCustomer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSourceResolvable;
@@ -30,7 +31,8 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
 
     @ExceptionHandler({
             CustomerNotFoundException.class,
-            ItemNotFoundException.class
+            ItemNotFoundException.class,
+            OrderServiceNotFoundException.class
     })
     public ResponseEntity<Object> handleArgumentStateNotFound(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
@@ -42,7 +44,8 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
     @ExceptionHandler({
             CustomerAlreadyExistsException.class,
             ItemAlreadyExistsException.class,
-            VehicleNotBelongToCustomer.class
+            VehicleNotBelongToCustomer.class,
+            IllegalStateException.class
     })
     public ResponseEntity<Object> handleArgumentStateBadRequest(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());

@@ -1,7 +1,7 @@
 ## Tarefa que precisam serem feitas para concluir o MVP
 
-- [ ]  Filtrar as order e gerar api de listagem
-- [ ]  API de mudança de status e conclusão de API
+- [X]  Filtrar as order e gerar api de listagem
+- [X]  API de mudança de status e conclusão de API
 - [ ]  Gerar exportação em PDF da ordem
 - [ ]  Ajustar o @Transactional nos repository
 - [ ]  Ajustar validações com o bean validation nos endpoints
