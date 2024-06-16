@@ -1,7 +1,8 @@
 package br.com.vital.controle_servico.customers.service;
 
-import br.com.vital.controle_servico.customers.dto.CustomerDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerFilterDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
 import br.com.vital.controle_servico.customers.exception.CustomerAlreadyExistsException;
 import br.com.vital.controle_servico.customers.exception.CustomerNotFoundException;
 import br.com.vital.controle_servico.customers.mapper.CustomerMapper;
@@ -27,7 +28,7 @@ public class CustomerService {
     private final CustomerCriteriaRepository customerCriteriaRepository;
 
     @Transactional(readOnly = true)
-    public Slice<CustomerDTO> findAll(CustomerFilterDTO filters, Pageable pageable) {
+    public Slice<CustomerResponseDTO> findAll(CustomerFilterDTO filters, Pageable pageable) {
         log.info("Find all customers pageable: {} and filters: {}", pageable, filters);
         var customers = customerCriteriaRepository.findAll(filters, pageable);
         if (customers.isEmpty()) {
@@ -40,7 +41,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerDTO findById(Long id) {
+    public CustomerResponseDTO findById(Long id) {
         log.info("Find customer by id: {}", id);
         return repository.findById(id)
                 .map(CustomerMapper::toCustomerDTO)
@@ -48,30 +49,30 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDTO save(CustomerDTO customerDTO) {
-        log.info("Save received customer to save: {}", customerDTO);
-        if (repository.existByDocumentNumberAndEmail(customerDTO.documentNumber(), customerDTO.email())) {
-            log.info("Customer already exists with documentNumber: {}, ignore request", customerDTO.documentNumber());
+    public CustomerResponseDTO save(CustomerRequestDTO customerRequestDTO) {
+        log.info("Save received customer to save: {}", customerRequestDTO);
+        if (repository.existByDocumentNumberAndEmail(customerRequestDTO.documentNumber(), customerRequestDTO.email())) {
+            log.info("Customer already exists with documentNumber: {}, ignore request", customerRequestDTO.documentNumber());
             throw new CustomerAlreadyExistsException("Customer already exists with documentNumber: %s and email %s."
-                    .formatted(customerDTO.documentNumber(), customerDTO.email()));
+                    .formatted(customerRequestDTO.documentNumber(), customerRequestDTO.email()));
         }
-        var customer = repository.saveAndFlush(CustomerMapper.toCustomer(customerDTO));
+        var customer = repository.saveAndFlush(CustomerMapper.toCustomer(customerRequestDTO));
         log.info("Customer saved: {}", customer);
         return CustomerMapper.toCustomerDTO(customer);
     }
 
     @Transactional
-    public CustomerDTO update(CustomerDTO customerDTO) {
+    public CustomerResponseDTO update(Long id, CustomerRequestDTO customerRequestDTO) {
         //TODO: Implementar regra de validação para saber se existe outro email
-        log.info("Update received customer to save: {}", customerDTO);
-        var optionalCustomer = repository.findById(customerDTO.id());
-        var newCustomer = CustomerMapper.toCustomer(customerDTO);
+        log.info("Update received customer to save: {}", customerRequestDTO);
+        var optionalCustomer = repository.findById(id);
+        var newCustomer = CustomerMapper.toCustomer(customerRequestDTO);
         var mergedCustomer = optionalCustomer
                 .map(oldCustomer -> oldCustomer.merge(newCustomer))
                 .orElseThrow(CustomerNotFoundException::new);
         log.info("Customer updated: {}", mergedCustomer);
         repository.saveAndFlush(mergedCustomer);
-        return customerDTO;
+        return CustomerMapper.toCustomerDTO(mergedCustomer);
     }
 
     @Transactional

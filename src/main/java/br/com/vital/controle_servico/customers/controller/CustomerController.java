@@ -1,7 +1,8 @@
 package br.com.vital.controle_servico.customers.controller;
 
-import br.com.vital.controle_servico.customers.dto.CustomerDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerFilterDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
 import br.com.vital.controle_servico.customers.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,11 @@ public class CustomerController {
     private final CustomerService service;
 
     @GetMapping
-    public ResponseEntity<Slice<CustomerDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                      @RequestParam(defaultValue = "10") int size,
-                                                      @RequestParam(name = "documentNumber", required = false) String documentNumber,
-                                                      @RequestParam(name = "name", required = false) String name,
-                                                      @RequestParam(name = "email", required = false) String email) {
+    public ResponseEntity<Slice<CustomerResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
+                                                              @RequestParam(defaultValue = "10") int size,
+                                                              @RequestParam(name = "documentNumber", required = false) String documentNumber,
+                                                              @RequestParam(name = "name", required = false) String name,
+                                                              @RequestParam(name = "email", required = false) String email) {
         var filters = CustomerFilterDTO.builder()
                 .name(name)
                 .email(email)
@@ -33,19 +34,19 @@ public class CustomerController {
         return new ResponseEntity<>(service.findAll(filters, PageRequest.of(page, size, Sort.by("name"))), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<CustomerDTO> findById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponseDTO> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> create(@Valid @RequestBody CustomerDTO customerDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(customerDTO));
+    public ResponseEntity<CustomerResponseDTO> create(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(customerRequestDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO customerDTO) {
-        return ResponseEntity.ok().body(service.update(customerDTO));
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO customerRequestDTO) {
+        return ResponseEntity.ok().body(service.update(id, customerRequestDTO));
     }
 
     @PatchMapping("{id}/active")

@@ -5,7 +5,7 @@ import br.com.vital.controle_servico.common.controller.ApiError;
 import br.com.vital.controle_servico.config.AbstractIntegrationTest;
 import br.com.vital.controle_servico.config.MockHTTPConverter;
 import br.com.vital.controle_servico.customers.dto.AddressDTO;
-import br.com.vital.controle_servico.customers.dto.CustomerDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse();
 
         final var expectedResponse = List.of(
-                new CustomerDTO(1L,
+                new CustomerRequestDTO(
                         "João Silva",
                         "joao@example.com",
                         "01263538088",
@@ -68,7 +68,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                                 "SP",
                                 "centro",
                                 "12345-678")),
-                new CustomerDTO(2L,
+                new CustomerRequestDTO(
                         "Maria Oliveira",
                         "maria@example.com",
                         "86776470073",
@@ -97,7 +97,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn().getResponse();
 
-        final var expectedResponse = new CustomerDTO(1L,
+        final var expectedResponse = new CustomerRequestDTO(
                 "João Silva",
                 "joao@example.com",
                 "01263538088",
@@ -111,7 +111,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                         "SP",
                         "CENTRO",
                         "12345-678"));
-        final var responseContent = mockHTTPConverter.convertJsonResponse(response, CustomerDTO.class);
+        final var responseContent = mockHTTPConverter.convertJsonResponse(response, CustomerRequestDTO.class);
         assertThat(responseContent).usingRecursiveComparison().isEqualTo(expectedResponse);
     }
 

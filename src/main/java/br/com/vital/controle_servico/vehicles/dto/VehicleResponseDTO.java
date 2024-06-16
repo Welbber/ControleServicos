@@ -2,9 +2,9 @@ package br.com.vital.controle_servico.vehicles.dto;
 
 import br.com.vital.controle_servico.vehicles.domain.FuelType;
 
-public record VehicleDTO(
+public record VehicleResponseDTO(
         Long id,
-        CustomerVehicleDTO customerVehicle,
+        String customerName,
         String brand,
         String model,
         String plate,
