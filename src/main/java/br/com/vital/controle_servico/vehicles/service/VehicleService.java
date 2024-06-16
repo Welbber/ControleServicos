@@ -32,7 +32,7 @@ public class VehicleService {
         log.info("Save received vehicle to save: {}", vehicleRequestDTO);
         if (repository.existByLicensePlate(vehicleRequestDTO.plate())) {
             log.info("Vehicle already exists with License Plate: {}, ignore request", vehicleRequestDTO.plate());
-            throw new VehicleAlreadyExistsException("Vehicle already exists with License Plate: %s".formatted(vehicleRequestDTO.plate()));
+            throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
         }
         var vehicle = repository.saveAndFlush(VehicleMapper.toVehicle(vehicleRequestDTO));
         log.info("Vehicle saved: {}", vehicle);

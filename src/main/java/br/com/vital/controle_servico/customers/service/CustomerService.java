@@ -53,7 +53,7 @@ public class CustomerService {
         log.info("Save received customer to save: {}", customerRequestDTO);
         if (repository.existByDocumentNumberAndEmail(customerRequestDTO.documentNumber(), customerRequestDTO.email())) {
             log.info("Customer already exists with documentNumber: {}, ignore request", customerRequestDTO.documentNumber());
-            throw new CustomerAlreadyExistsException("Customer already exists with documentNumber: %s and email %s."
+            throw new CustomerAlreadyExistsException("Já existe um cliente com esse documento: %s e e-mail: %s."
                     .formatted(customerRequestDTO.documentNumber(), customerRequestDTO.email()));
         }
         var customer = repository.saveAndFlush(CustomerMapper.toCustomer(customerRequestDTO));
@@ -63,8 +63,18 @@ public class CustomerService {
 
     @Transactional
     public CustomerResponseDTO update(Long id, CustomerRequestDTO customerRequestDTO) {
-        //TODO: Implementar regra de validação para saber se existe outro email
         log.info("Update received customer to save: {}", customerRequestDTO);
+        repository.findByDocumentNumberAndEmail(customerRequestDTO.documentNumber(), customerRequestDTO.email())
+                .ifPresent(customer -> {
+                    if (!customer.getDocumentNumber().equalsIgnoreCase(customerRequestDTO.documentNumber()) &&
+                            !customer.getEmail().equals(customerRequestDTO.email())
+                    ) {
+                        log.info("Customer already exists with documentNumber: {}, ignore request", customerRequestDTO.documentNumber());
+                        throw new CustomerAlreadyExistsException("Já existe um cliente com esse documento : %s e e-mail %s."
+                                .formatted(customerRequestDTO.documentNumber(), customerRequestDTO.email()));
+                    }
+                });
+
         var optionalCustomer = repository.findById(id);
         var newCustomer = CustomerMapper.toCustomer(customerRequestDTO);
         var mergedCustomer = optionalCustomer
@@ -78,8 +88,10 @@ public class CustomerService {
     @Transactional
     public Boolean delete(Long id) {
         log.info("Delete received customer by id: {}", id);
-        //TODO: implementar validação para saber se exsite um registro com id passado
-        repository.deleteById(id);
+        var customer = repository.findById(id)
+                .map(CustomerMapper::toCustomerDTO)
+                .orElseThrow(CustomerNotFoundException::new);
+        repository.deleteById(customer.id());
         return true;
     }
 

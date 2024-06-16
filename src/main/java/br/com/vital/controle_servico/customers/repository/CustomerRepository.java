@@ -28,4 +28,7 @@ public interface CustomerRepository extends Repository<Customer, Long> {
     @Transactional
     void deleteById(long id);
 
+    @Transactional(readOnly = true)
+    Optional<Customer> findByDocumentNumberAndEmail(String documentNumber, String email);
+    
 }
