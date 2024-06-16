@@ -44,7 +44,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> update(@RequestBody CustomerDTO customerDTO) {
         return ResponseEntity.ok().body(service.update(customerDTO));
     }
 

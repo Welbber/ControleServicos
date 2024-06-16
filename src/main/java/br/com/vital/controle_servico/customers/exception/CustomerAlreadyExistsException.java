@@ -1,4 +1,4 @@
-package br.com.vital.controle_servico.common.exception;
+package br.com.vital.controle_servico.customers.exception;
 
 public class CustomerAlreadyExistsException extends RuntimeException {
 

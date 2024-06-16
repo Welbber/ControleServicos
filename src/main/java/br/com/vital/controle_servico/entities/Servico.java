@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "Servicos")
@@ -27,8 +26,8 @@ public class Servico {
     @JoinColumn(name = "veiculo_id")
     @Setter(AccessLevel.PRIVATE)
     private Vehicle vehicle;
-    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
-    private List<Item> itens;
+//    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
+//    private List<Item> itens;
 
     public Servico(Long id) {
         this.id = id;

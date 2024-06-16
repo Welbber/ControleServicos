@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @DynamicUpdate
 @EqualsAndHashCode
 @Table(name = "vehicles")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Vehicle {
 
