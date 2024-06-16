@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class ItemCriteriaRepository extends CriteriaRepository {
         super(entityManager);
     }
 
+    @Transactional(readOnly = true)
     public Slice<Item> findAll(ItemFilterDTO filter, Pageable pageable) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Item> query = builder.createQuery(Item.class);

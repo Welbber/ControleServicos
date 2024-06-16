@@ -2,8 +2,8 @@
 
 - [X]  Filtrar as order e gerar api de listagem
 - [X]  API de mudança de status e conclusão de API
-- [ ]  Gerar exportação em PDF da ordem
-- [ ]  Ajustar o @Transactional nos repository
+- [X]  Gerar exportação em PDF da ordem
+- [X]  Ajustar o @Transactional nos repository
 - [ ]  Ajustar validações com o bean validation nos endpoints
 - [ ]  Verificar os todos que estão marcados no código
 - [ ]  Criar serviços para retornar os tipos que estão nos Enums
@@ -21,7 +21,8 @@
 - [ ] Ao final de cada ordem concluída reduzir a quantidade de itens aos itens associados da ordem
 - [ ] Analisar a necessidade de criar duas colunas na order para armagenar as datas de inicio do serviço e final
 - [ ] Criar um index na tabela de order_servce_detail entre id e item_id(Está com o sep scan)
-- [X]  Resolver problema do não lancamento de exception do bean validation
+- [ ] Criar os testes unitiários e integrados
+- [X] Resolver problema do não lancamento de exception do bean validation
 - [X] Criar index na tabela de itens
 - [X] Validar se o veículo passado é do cliente passado
 - [X] Bug na soma dos itens 
