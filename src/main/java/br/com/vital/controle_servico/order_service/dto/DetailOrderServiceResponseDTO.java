@@ -16,6 +16,7 @@ public record DetailOrderServiceResponseDTO(
         Integer quantityItemsTotal,
         OrderServiceType type,
         OrderServiceStatus status,
+        Long customerId,
         String customerEmail,
         String customerName,
         String licensePlate,

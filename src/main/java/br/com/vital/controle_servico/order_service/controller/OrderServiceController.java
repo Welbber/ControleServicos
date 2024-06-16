@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,4 +59,13 @@ public class OrderServiceController {
         return ResponseEntity.ok().body(updateStatusOrderServiceService.updateStatusOrCloseOrder(requestDTO));
     }
 
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> exportPdf(@PathVariable("id") Long id) {
+        var pdf = detailOrderServiceService.exportPdf(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentLength(pdf.size());
+        headers.add("Content-Disposition", "inline; filename=order_servico_%s.pdf".formatted(id));
+        return ResponseEntity.ok().headers(headers).body(pdf.toByteArray());
+    }
 }
