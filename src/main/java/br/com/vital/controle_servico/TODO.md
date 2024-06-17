@@ -5,22 +5,22 @@
 - [X]  Gerar exportação em PDF da ordem
 - [X]  Ajustar o @Transactional nos repository
 - [X]  Ajustar validações com o bean validation nos endpoints
-- [ ]  Verificar os todos que estão marcados no código
-- [ ]  Criar serviços para retornar os tipos que estão nos Enums
+- [X]  Verificar os todos que estão marcados no código
+- [ ]  Criar serviços para retornar os tipos que estão nos Enums(FUTURO)
 - [ ]  Criar modulo de usuário e perfis
 - [ ]  modificar as tabelas para que registrar quem foi o autor da ação
 - [ ]  implementar jwt
 - [ ]  Implementar os testes unitiários e integrados de cada parte
-- [ ]  Implementar o serviço na cloud
+- [ ]  Implementar o serviço na cloud(FUTURO)
 - [X]  Mudar o nome das entidades de entradas para por Exemplo CustomerRequestDTO
 - [X]  Mudar o nome das entidades de saídas/retorno para por Exemplo CustomerResponseDTO
 - [X]  Mudar as mensagens que estão em inglês para portugues
 - [X]  Mudar logs para português, deixar em inglês mesmo.
-- [ ]  Ajustar os retornos dos endpoints que estão retornando true, verificar se vale a pena retornar um objeto
-- [ ]  Analisar bug na idempotencia no cadastro de item
-- [ ] Ao final de cada ordem concluída reduzir a quantidade de itens aos itens associados da ordem
-- [ ] Analisar a necessidade de criar duas colunas na order para armagenar as datas de inicio do serviço e final
-- [ ] Criar um index na tabela de order_servce_detail entre id e item_id(Está com o sep scan)
+- [X]  Ajustar os retornos dos endpoints que estão retornando true, verificar se vale a pena retornar um objeto
+- [X] Analisar bug na idempotencia no cadastro de item
+- [ ] Ao final de cada ordem concluída reduzir a quantidade de itens aos itens associados da ordem(FUTURO)
+- [X] Analisar a necessidade de criar duas colunas na order para armagenar as datas de inicio do serviço e final
+- [X] Criar um index na tabela de order_servce_detail entre id e item_id(Está com o sep scan)
 - [X] Resolver problema do não lancamento de exception do bean validation
 - [X] Criar index na tabela de itens
 - [X] Validar se o veículo passado é do cliente passado

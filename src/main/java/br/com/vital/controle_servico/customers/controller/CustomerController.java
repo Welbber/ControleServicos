@@ -3,6 +3,7 @@ package br.com.vital.controle_servico.customers.controller;
 import br.com.vital.controle_servico.customers.dto.CustomerFilterDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerStatusResponseDTO;
 import br.com.vital.controle_servico.customers.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -50,18 +51,18 @@ public class CustomerController {
     }
 
     @PatchMapping("{id}/active")
-    public ResponseEntity<Boolean> activate(@PathVariable Long id) {
+    public ResponseEntity<CustomerStatusResponseDTO> activate(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.activeCustomer(id, Boolean.TRUE));
     }
 
     @PatchMapping("{id}/inactive")
-    public ResponseEntity<Boolean> inactive(@PathVariable Long id) {
+    public ResponseEntity<CustomerStatusResponseDTO> inactive(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.inactiveCustomer(id, Boolean.FALSE));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable long id) {
-        return ResponseEntity.ok().body(service.delete(id));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
 
 }

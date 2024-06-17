@@ -3,6 +3,7 @@ package br.com.vital.controle_servico.customers.service;
 import br.com.vital.controle_servico.customers.dto.CustomerFilterDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerStatusResponseDTO;
 import br.com.vital.controle_servico.customers.exception.CustomerAlreadyExistsException;
 import br.com.vital.controle_servico.customers.exception.CustomerNotFoundException;
 import br.com.vital.controle_servico.customers.mapper.CustomerMapper;
@@ -96,22 +97,22 @@ public class CustomerService {
     }
 
     @Transactional
-    public Boolean activeCustomer(Long id, Boolean status) {
+    public CustomerStatusResponseDTO activeCustomer(Long id, Boolean status) {
         log.info("Active received customer {} status to save: {}", id, status);
         var customer = repository.findById(id).orElseThrow(CustomerNotFoundException::new);
         customer.active();
         repository.saveAndFlush(customer);
         log.info("Customer active: {}", customer);
-        return true;
+        return new CustomerStatusResponseDTO("Cliente ativado com sucesso", "active");
     }
 
     @Transactional
-    public Boolean inactiveCustomer(Long id, Boolean status) {
+    public CustomerStatusResponseDTO inactiveCustomer(Long id, Boolean status) {
         log.info("Inactive received customer {} status to save: {}", id, status);
         var customer = repository.findById(id).orElseThrow(CustomerNotFoundException::new);
         customer.inactive();
         repository.saveAndFlush(customer);
         log.info("Customer inactive: {}", customer);
-        return true;
+        return new CustomerStatusResponseDTO("Cliente desativado com sucesso", "inactive");
     }
 }

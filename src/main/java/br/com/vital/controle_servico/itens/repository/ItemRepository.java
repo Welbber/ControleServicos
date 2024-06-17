@@ -21,7 +21,7 @@ public interface ItemRepository extends Repository<Item, Long> {
     @Query("""
             select count(i.id) > 1
             from Item i
-            where i.code = :code and i.description = :description
+            where LOWER(i.code) = :code and LOWER(i.description) = :description
             """)
     boolean existByCodeAndDescription(@Param("code") String code, @Param("description") String description);
 
