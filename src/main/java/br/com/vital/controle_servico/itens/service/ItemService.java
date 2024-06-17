@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -29,7 +30,7 @@ public class ItemService {
     @Transactional
     public ItemResponseDTO save(ItemRequestDTO itemRequestDTO) {
         log.info("Save received item to save: {}", itemRequestDTO);
-        if (repository.existByCodeAndDescription(itemRequestDTO.code(), itemRequestDTO.description())) {
+        if (repository.existByCodeAndDescription(itemRequestDTO.code().toLowerCase(Locale.ROOT), itemRequestDTO.description().toLowerCase(Locale.ROOT))) {
             log.info("Item already exists with code: {} and description: {}, ignore request", itemRequestDTO.code(), itemRequestDTO.description());
             throw new ItemAlreadyExistsException("O Item cadastrado já existe com código: %s e descrição: %s".formatted(itemRequestDTO.code(), itemRequestDTO.description()));
         }

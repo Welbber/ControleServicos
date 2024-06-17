@@ -1,7 +1,8 @@
 package br.com.vital.controle_servico.vehicles.service;
 
-import br.com.vital.controle_servico.vehicles.dto.VehicleDTO;
 import br.com.vital.controle_servico.vehicles.dto.VehicleFilterDTO;
+import br.com.vital.controle_servico.vehicles.dto.VehicleRequestDTO;
+import br.com.vital.controle_servico.vehicles.dto.VehicleResponseDTO;
 import br.com.vital.controle_servico.vehicles.exception.VehicleAlreadyExistsException;
 import br.com.vital.controle_servico.vehicles.exception.VehicleNotFoundException;
 import br.com.vital.controle_servico.vehicles.mapper.VehicleMapper;
@@ -27,26 +28,26 @@ public class VehicleService {
     private final VehicleCriteriaRepository vehicleCriteriaRepository;
 
     @Transactional
-    public VehicleDTO save(VehicleDTO vehicleDTO) {
-        log.info("Save received vehicle to save: {}", vehicleDTO);
-        if (repository.existByLicensePlate(vehicleDTO.plate())) {
-            log.info("Vehicle already exists with License Plate: {}, ignore request", vehicleDTO.plate());
-            throw new VehicleAlreadyExistsException("Vehicle already exists with License Plate: %s".formatted(vehicleDTO.plate()));
+    public VehicleResponseDTO save(VehicleRequestDTO vehicleRequestDTO) {
+        log.info("Save received vehicle to save: {}", vehicleRequestDTO);
+        if (repository.existByLicensePlate(vehicleRequestDTO.plate())) {
+            log.info("Vehicle already exists with License Plate: {}, ignore request", vehicleRequestDTO.plate());
+            throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
         }
-        var vehicle = repository.saveAndFlush(VehicleMapper.toVehicle(vehicleDTO));
+        var vehicle = repository.saveAndFlush(VehicleMapper.toVehicle(vehicleRequestDTO));
         log.info("Vehicle saved: {}", vehicle);
         return VehicleMapper.toVehicleDTO(vehicle);
     }
 
     @Transactional(readOnly = true)
-    public VehicleDTO findById(Long id) {
+    public VehicleResponseDTO findById(Long id) {
         log.info("Find vehicle by id: {}", id);
         return repository.findById(id)
                 .map(VehicleMapper::toVehicleDTO)
                 .orElseThrow(VehicleNotFoundException::new);
     }
 
-    public Slice<VehicleDTO> findAll(VehicleFilterDTO filters, PageRequest pageable) {
+    public Slice<VehicleResponseDTO> findAll(VehicleFilterDTO filters, PageRequest pageable) {
         log.info("Find all vehicles pageable: {} and filters: {}", pageable, filters);
         var vehicles = vehicleCriteriaRepository.findAll(filters, pageable);
         if (vehicles.isEmpty()) {
@@ -58,7 +59,7 @@ public class VehicleService {
         return vehicles.map(VehicleMapper::toVehicleDTO);
     }
 
-    public List<VehicleDTO> findAllByCustomer(Long customerId) {
+    public List<VehicleResponseDTO> findAllByCustomer(Long customerId) {
         log.info("Find all vehicles by customer id: {}", customerId);
         var vehicles = repository.findByCustomerId(customerId);
         if (vehicles.isEmpty()) {

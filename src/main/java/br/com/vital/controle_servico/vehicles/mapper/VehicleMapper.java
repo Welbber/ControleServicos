@@ -3,17 +3,18 @@ package br.com.vital.controle_servico.vehicles.mapper;
 import br.com.vital.controle_servico.customers.domain.Customer;
 import br.com.vital.controle_servico.vehicles.domain.Vehicle;
 import br.com.vital.controle_servico.vehicles.dto.CustomerVehicleDTO;
-import br.com.vital.controle_servico.vehicles.dto.VehicleDTO;
+import br.com.vital.controle_servico.vehicles.dto.VehicleRequestDTO;
+import br.com.vital.controle_servico.vehicles.dto.VehicleResponseDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VehicleMapper {
 
-    public static VehicleDTO toVehicleDTO(Vehicle vehicle) {
-        return new VehicleDTO(
+    public static VehicleResponseDTO toVehicleDTO(Vehicle vehicle) {
+        return new VehicleResponseDTO(
                 vehicle.getId(),
-                toCustomerVehicle(vehicle.getCustomer()),
+                vehicle.getCustomer().getName(),
                 vehicle.getBrand(),
                 vehicle.getModel(),
                 vehicle.getLicensePlate(),
@@ -23,20 +24,15 @@ public class VehicleMapper {
         );
     }
 
-    private static CustomerVehicleDTO toCustomerVehicle(Customer customer) {
-        return new CustomerVehicleDTO(customer.getId(), customer.getName());
-    }
-
-    public static Vehicle toVehicle(VehicleDTO vehicleDTO) {
+    public static Vehicle toVehicle(VehicleRequestDTO vehicleRequestDTO) {
         return Vehicle.builder()
-                .id(vehicleDTO.id())
-                .customer(toCustomer(vehicleDTO.customerVehicle()))
-                .brand(vehicleDTO.brand())
-                .model(vehicleDTO.model())
-                .color(vehicleDTO.color())
-                .year(vehicleDTO.year())
-                .licensePlate(vehicleDTO.plate())
-                .fuelType(vehicleDTO.fuelType())
+                .customer(toCustomer(vehicleRequestDTO.customerVehicle()))
+                .brand(vehicleRequestDTO.brand())
+                .model(vehicleRequestDTO.model())
+                .color(vehicleRequestDTO.color())
+                .year(vehicleRequestDTO.year())
+                .licensePlate(vehicleRequestDTO.plate())
+                .fuelType(vehicleRequestDTO.fuelType())
                 .build();
     }
 

@@ -54,7 +54,7 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(itemService.delete(id));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(itemService.delete(id));
     }
 
 }

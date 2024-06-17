@@ -3,15 +3,16 @@ package br.com.vital.controle_servico.customers.mapper;
 import br.com.vital.controle_servico.customers.domain.Address;
 import br.com.vital.controle_servico.customers.domain.Customer;
 import br.com.vital.controle_servico.customers.dto.AddressDTO;
-import br.com.vital.controle_servico.customers.dto.CustomerDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
+import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerMapper {
 
-    public static CustomerDTO toCustomerDTO(Customer customer) {
-        return new CustomerDTO(
+    public static CustomerResponseDTO toCustomerDTO(Customer customer) {
+        return new CustomerResponseDTO(
                 customer.getId(),
                 customer.getName(),
                 customer.getPhoneNumber(),
@@ -20,14 +21,13 @@ public class CustomerMapper {
                 getAddressDTO(customer.getAddress()));
     }
 
-    public static Customer toCustomer(CustomerDTO customerDTO) {
+    public static Customer toCustomer(CustomerRequestDTO customerRequestDTO) {
         return Customer.builder()
-                .id(customerDTO.id())
-                .name(customerDTO.name())
-                .email(customerDTO.email())
-                .documentNumber(customerDTO.documentNumber())
-                .phoneNumber(customerDTO.phoneNumber())
-                .address(toAddress(customerDTO.address()))
+                .name(customerRequestDTO.name())
+                .email(customerRequestDTO.email())
+                .documentNumber(customerRequestDTO.documentNumber())
+                .phoneNumber(customerRequestDTO.phoneNumber())
+                .address(toAddress(customerRequestDTO.address()))
                 .build();
     }
 
