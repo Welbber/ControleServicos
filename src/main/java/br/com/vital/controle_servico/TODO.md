@@ -24,4 +24,5 @@
 - [X] Resolver problema do não lancamento de exception do bean validation
 - [X] Criar index na tabela de itens
 - [X] Validar se o veículo passado é do cliente passado
-- [X] Bug na soma dos itens 
+- [X] Bug na soma dos itens
+- [ ] Adicionar forma de pagamento na ordem de serviço 
