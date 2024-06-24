@@ -25,8 +25,7 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
     })
     public ResponseEntity<Object> handleArgumentStateUnauthorized(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.UNAUTHORIZED, ex.getMessage());
-        log.error(apiError.toString());
-        return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
+        return handleArgumentState(apiError);
     }
 
     @ExceptionHandler({
@@ -36,8 +35,7 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
     })
     public ResponseEntity<Object> handleArgumentStateNotFound(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
-        log.error(apiError.toString());
-        return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
+        return handleArgumentState(apiError);
     }
 
 
@@ -49,8 +47,7 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
     })
     public ResponseEntity<Object> handleArgumentStateBadRequest(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
-        log.error(apiError.toString());
-        return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
+        return handleArgumentState(apiError);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -60,9 +57,13 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
                 .map(MessageSourceResolvable::getDefaultMessage)
                 .toList();
         final var apiError = new ApiError(HttpStatus.BAD_REQUEST, messages);
+        return handleArgumentState(apiError);
+
+    }
+
+    private ResponseEntity<Object> handleArgumentState(ApiError apiError) {
         log.error(apiError.toString());
         return ResponseEntity.status(apiError.getStatus().value()).body(apiError);
-
     }
 
 }

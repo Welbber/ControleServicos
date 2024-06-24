@@ -39,3 +39,6 @@ app:
   auth:
     ignore-paths: /swagger-ui,/swagger-resources,/docs,/api-docs,/webjars,/info,/healthcheck,/health-check,/healthcheck/complete,/metrics,/error
     service-shared-secret: "teste-local"
+
+
+auth-secret-key: "$3C43T_K3Y@$"
