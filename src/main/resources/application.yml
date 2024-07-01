@@ -39,3 +39,13 @@ app:
   auth:
     ignore-paths: /swagger-ui,/swagger-resources,/docs,/api-docs,/webjars,/info,/healthcheck,/health-check,/healthcheck/complete,/metrics,/error
     service-shared-secret: "teste-local"
+
+jwt:
+  private-key: classpath:app.key.pem
+  public-key: classpath:app.public.key.pem
+
+logging:
+  level:
+    # root: DEBUG
+    # org.springframework: DEBUG
+    br.com.vital.controle_servico: DEBUG

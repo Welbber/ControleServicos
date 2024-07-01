@@ -7,9 +7,9 @@
 - [X]  Ajustar validações com o bean validation nos endpoints
 - [X]  Verificar os todos que estão marcados no código
 - [ ]  Criar serviços para retornar os tipos que estão nos Enums(FUTURO)
-- [ ]  Criar modulo de usuário e perfis
-- [ ]  modificar as tabelas para que registrar quem foi o autor da ação
-- [ ]  implementar jwt
+- [X]  Criar modulo de usuário e perfis
+- [X]  modificar as tabelas para que registrar quem foi o autor da ação
+- [X]  implementar jwt
 - [ ]  Implementar os testes unitiários e integrados de cada parte
 - [ ]  Implementar o serviço na cloud(FUTURO)
 - [X]  Mudar o nome das entidades de entradas para por Exemplo CustomerRequestDTO
