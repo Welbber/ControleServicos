@@ -11,6 +11,6 @@ public record AddressDTO(Long id,
                          String state,
                          String district,
                          @NotNull(message = "CEP é obrigatório")
-                         @Pattern(regexp = "^\\d{1,5}$", flags = {Pattern.Flag.CASE_INSENSITIVE, Pattern.Flag.MULTILINE}, message = "The Zip code is invalid.")
+                         @Pattern(regexp = "^\\d{5}-\\d{3}$", flags = {Pattern.Flag.CASE_INSENSITIVE, Pattern.Flag.MULTILINE}, message = "CEP com formato inválido.")
                          String zipCode) {
 }
