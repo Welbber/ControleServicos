@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   application:
     name: controle-servicos-automotivos-sa
   profiles:
@@ -49,3 +53,4 @@ logging:
     br.com.vital.controle_servico: DEBUG
     org.springframework.security: TRACE
     org.springframework.web: TRACE
+openai.api.key: 

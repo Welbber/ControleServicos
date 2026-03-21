@@ -14,5 +14,11 @@ public record OrderServiceResponseDTO(
         OrderServiceStatus status,
         String customerName,
         BigDecimal amount,
+        BigDecimal partsCost,
+        BigDecimal laborCost,
+        BigDecimal discountAmount,
+        String customerComplaint,
+        String inspectionNotes,
+        String aiDamageReport,
         Integer quantityItens) {
 }

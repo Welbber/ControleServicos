@@ -44,15 +44,33 @@ public class OrderService {
     @Enumerated(EnumType.STRING)
     private OrderServiceStatus status;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     private BigDecimal amount;
+
+    @Column(name = "parts_cost")
+    private BigDecimal partsCost;
+
+    @Column(name = "labor_cost")
+    private BigDecimal laborCost;
+
+    @Column(name = "discount_amount")
+    private BigDecimal discountAmount;
+
+    @Column(name = "customer_complaint", columnDefinition = "TEXT")
+    private String customerComplaint;
+
+    @Column(name = "inspection_notes", columnDefinition = "TEXT")
+    private String inspectionNotes;
+
+    @Column(name = "ai_damage_report", columnDefinition = "TEXT")
+    private String aiDamageReport;
 
     @Column(name = "quantity_itens")
     private Integer quantityItems;
