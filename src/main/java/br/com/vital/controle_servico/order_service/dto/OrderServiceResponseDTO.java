@@ -5,8 +5,10 @@ import br.com.vital.controle_servico.order_service.domain.OrderServiceType;
 
 import java.math.BigDecimal;
 
+import java.util.UUID;
+
 public record OrderServiceResponseDTO(
-        Long id,
+        UUID id,
         String description,
         OrderServiceType type,
         OrderServiceStatus status,

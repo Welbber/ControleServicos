@@ -2,8 +2,10 @@ package br.com.vital.controle_servico.vehicles.dto;
 
 import br.com.vital.controle_servico.vehicles.domain.FuelType;
 
+import java.util.UUID;
+
 public record VehicleResponseDTO(
-        Long id,
+        UUID id,
         String customerName,
         String brand,
         String model,

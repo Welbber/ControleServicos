@@ -6,7 +6,7 @@ spring:
   datasource:
     username: postgres #TODO pegar de variaveis de ambiente
     password: postgres
-    url: jdbc:postgresql://localhost:5432/controle-servicos
+    url: jdbc:postgresql://localhost:5432/controle_servicos
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
@@ -46,6 +46,6 @@ jwt:
 
 logging:
   level:
-    # root: DEBUG
-    # org.springframework: DEBUG
     br.com.vital.controle_servico: DEBUG
+    org.springframework.security: TRACE
+    org.springframework.web: TRACE

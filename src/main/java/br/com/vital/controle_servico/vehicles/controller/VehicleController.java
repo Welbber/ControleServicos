@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -46,13 +47,13 @@ public class VehicleController {
 
     @IsRead
     @GetMapping("/customer/{id}")
-    public ResponseEntity<List<VehicleResponseDTO>> findAll(@PathVariable(name = "id") Long customerId) {
+    public ResponseEntity<List<VehicleResponseDTO>> findAll(@PathVariable(name = "id") UUID customerId) {
         return new ResponseEntity<>(service.findAllByCustomer(customerId), HttpStatus.OK);
     }
 
     @IsRead
     @GetMapping(value = "/{id}")
-    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable UUID id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
@@ -64,7 +65,7 @@ public class VehicleController {
 
     @IsDelete
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
     

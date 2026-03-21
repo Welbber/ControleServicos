@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public record OrderServiceRequestDTO(
         @NotNull(message = "A descrição da Ordem de Serviço precisa se informada")
@@ -18,7 +19,7 @@ public record OrderServiceRequestDTO(
         @NotNull(message = "O Status da Ordem de Serviço é obrigatório")
         OrderServiceStatus status,
         @NotNull(message = "O Veículo associada a Ordem de Serviço é um obrigatório")
-        Long vehicleId,
+        UUID vehicleId,
         BigDecimal amount,
         @NotNull(message = "A Kilometragem atual do Veículo é obrigatório")
         Integer kmVehicleAt,

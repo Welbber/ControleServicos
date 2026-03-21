@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class DetailOrderServiceService {
 
 
     @Transactional(readOnly = true)
-    public DetailOrderServiceResponseDTO detail(Long orderServiceId) {
+    public DetailOrderServiceResponseDTO detail(UUID orderServiceId) {
         log.info("Consult received to detail for order with id: {}", orderServiceId);
         var detail = orderServiceDetailFindRepository.findByOrderServiceId(orderServiceId);
         if (Objects.isNull(detail)) {
@@ -53,7 +55,7 @@ public class DetailOrderServiceService {
     }
 
     @Transactional(readOnly = true)
-    public ByteArrayOutputStream exportPdf(Long orderServiceId) {
+    public ByteArrayOutputStream exportPdf(UUID orderServiceId) {
         log.info("Consult received to detail for order with id: {} to export PDF", orderServiceId);
         var detail = orderServiceDetailFindRepository.findByOrderServiceId(orderServiceId);
         if (Objects.isNull(detail)) {

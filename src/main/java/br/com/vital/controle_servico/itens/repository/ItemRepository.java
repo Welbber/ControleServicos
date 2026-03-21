@@ -7,15 +7,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @org.springframework.stereotype.Repository
-public interface ItemRepository extends Repository<Item, Long> {
+public interface ItemRepository extends Repository<Item, UUID> {
 
     @Transactional
     Item saveAndFlush(Item item);
 
     @Transactional(readOnly = true)
-    Optional<Item> findById(Long id);
+    Optional<Item> findById(UUID id);
 
     @Transactional(readOnly = true)
     @Query("""
@@ -26,6 +27,6 @@ public interface ItemRepository extends Repository<Item, Long> {
     boolean existByCodeAndDescription(@Param("code") String code, @Param("description") String description);
 
     @Transactional
-    void deleteById(Long id);
+    void deleteById(UUID id);
 
 }

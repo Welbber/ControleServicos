@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -18,8 +19,8 @@ import java.math.BigDecimal;
 public class OrderServiceDetail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_service_id", referencedColumnName = "id")

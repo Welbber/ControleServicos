@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -44,7 +45,7 @@ public class CustomerController {
 
     @IsRead
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<CustomerResponseDTO> findById(@PathVariable UUID id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
@@ -56,25 +57,25 @@ public class CustomerController {
 
     @IsUpdate
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> update(@PathVariable Long id, @RequestBody CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable UUID id, @RequestBody CustomerRequestDTO customerRequestDTO) {
         return ResponseEntity.ok().body(service.update(id, customerRequestDTO));
     }
 
     @IsUpdate
     @PatchMapping("{id}/active")
-    public ResponseEntity<CustomerStatusResponseDTO> activate(@PathVariable Long id) {
+    public ResponseEntity<CustomerStatusResponseDTO> activate(@PathVariable UUID id) {
         return ResponseEntity.ok().body(service.activeCustomer(id, Boolean.TRUE));
     }
 
     @IsUpdate
     @PatchMapping("{id}/inactive")
-    public ResponseEntity<CustomerStatusResponseDTO> inactive(@PathVariable Long id) {
+    public ResponseEntity<CustomerStatusResponseDTO> inactive(@PathVariable UUID id) {
         return ResponseEntity.ok().body(service.inactiveCustomer(id, Boolean.FALSE));
     }
     
     @IsDelete
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
 

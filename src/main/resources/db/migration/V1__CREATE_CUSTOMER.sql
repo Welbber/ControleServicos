@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS  customers
 (
-    id              SERIAL       NOT NULL,
+    id              UUID       NOT NULL DEFAULT gen_random_uuid(),
     name            VARCHAR(255) NOT NULL,
     document_number VARCHAR(14)  NOT NULL,
     email           VARCHAR(255) NOT NULL,
@@ -16,8 +16,8 @@ CREATE INDEX IF NOT EXISTS customers_index_name_email ON customers (name, email)
 
 CREATE TABLE IF NOT EXISTS address
 (
-    id          SERIAL     NOT NULL,
-    customer_id INT,
+    id          UUID       NOT NULL DEFAULT gen_random_uuid(),
+    customer_id UUID,
     street_name VARCHAR(255),
     number      INT        NOT NULL,
     district    VARCHAR(255),

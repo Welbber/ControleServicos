@@ -1,5 +1,6 @@
 package br.com.vital.controle_servico.vehicles.domain;
 
+import br.com.vital.controle_servico.tenants.config.TenantEntityListener;
 import br.com.vital.controle_servico.customers.domain.Customer;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 
 @Builder
@@ -16,14 +18,19 @@ import java.time.ZonedDateTime;
 @DynamicUpdate
 @EqualsAndHashCode
 @Table(name = "vehicles")
+@EntityListeners(TenantEntityListener.class)
+@org.hibernate.annotations.Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.PRIVATE)
-    private Long id;
+    private UUID id;
+
+    @Column(name = "tenant_id", nullable = false, updatable = false)
+    private UUID tenantId;
 
     private String brand;
 

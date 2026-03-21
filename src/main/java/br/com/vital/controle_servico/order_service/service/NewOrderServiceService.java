@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -29,7 +30,7 @@ public class NewOrderServiceService {
     private final OrderServiceDetailRepository orderServiceDetailRepository;
 
     @Transactional
-    public OrderServiceResponseDTO save(Long customerId, OrderServiceRequestDTO orderServiceRequestDTO) {
+    public OrderServiceResponseDTO save(UUID customerId, OrderServiceRequestDTO orderServiceRequestDTO) {
         log.info("Received request to save a new order: {} to customerId: {}", orderServiceRequestDTO, customerId);
 
         var customer = customerRepository.findById(customerId)

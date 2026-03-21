@@ -6,17 +6,18 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 
 public record DetailOrderServiceResponseDTO(
-        Long id,
+        UUID id,
         String description,
         BigDecimal amountTotal,
         Integer kmVehicleAt,
         Integer quantityItemsTotal,
         OrderServiceType type,
         OrderServiceStatus status,
-        Long customerId,
+        UUID customerId,
         String customerEmail,
         String customerName,
         String licensePlate,

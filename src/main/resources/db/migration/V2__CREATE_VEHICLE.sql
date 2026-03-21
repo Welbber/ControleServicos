@@ -3,8 +3,8 @@ RENAME COLUMN street_name to street;
 
 CREATE TABLE IF NOT EXISTS  vehicles
 (
-    id              SERIAL       NOT NULL,
-    customer_id     INT NOT NULL,
+    id              UUID       NOT NULL DEFAULT gen_random_uuid(),
+    customer_id     UUID NOT NULL,
     brand           VARCHAR(255),
     license_plate   VARCHAR(8)  NOT NULL UNIQUE,
     model           VARCHAR(255),

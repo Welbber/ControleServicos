@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -40,14 +41,14 @@ public class ItemService {
     }
 
     @Transactional(readOnly = true)
-    public ItemResponseDTO findById(Long id) {
+    public ItemResponseDTO findById(UUID id) {
         log.info("Find received item by id: {}", id);
         return ItemMapper.toDTO(repository.findById(id)
                 .orElseThrow(ItemNotFoundException::new));
     }
 
     @Transactional
-    public ItemResponseDTO update(Long id, ItemRequestDTO itemRequestDTO) {
+    public ItemResponseDTO update(UUID id, ItemRequestDTO itemRequestDTO) {
         log.info("Update received item to save changes: {}", itemRequestDTO);
         var item = repository.findById(id).orElseThrow(ItemNotFoundException::new);
         item.merger(itemRequestDTO);
@@ -56,7 +57,7 @@ public class ItemService {
     }
 
     @Transactional
-    public Boolean delete(Long id) {
+    public Boolean delete(UUID id) {
         log.info("Delete received item by id: {}", id);
         var item = repository.findById(id).orElseThrow(ItemNotFoundException::new);
         repository.deleteById(item.getId());

@@ -44,11 +44,16 @@ public class SecurityConfig {
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
             "/api/test/**",
-            "api/v1/auth/refresh-token",
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/swagger-ui.html",
-            "*/api-docs"
+            "/api/v1/auth/refresh-token", 
+            "/api/v1/tenants/register",
+            "/api/v1/tenants/register/**",
+            "/error",
+            "/v3/api-docs/**",            
+            "/api-docs/**",               
+            "/swagger-ui/**",             
+            "/swagger-ui.html",           
+            "/swagger-resources/**",      
+            "/webjars/**"
     };
 
     private final JwtAuthFilter jwtAuthFilter;
