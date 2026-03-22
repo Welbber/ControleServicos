@@ -5,6 +5,7 @@ import br.com.vital.controle_servico.order_service.domain.OrderServiceType;
 
 import java.math.BigDecimal;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record OrderServiceResponseDTO(
@@ -20,5 +21,7 @@ public record OrderServiceResponseDTO(
         String customerComplaint,
         String inspectionNotes,
         String aiDamageReport,
-        Integer quantityItens) {
+        Integer quantityItens,
+        LocalDate dateStart,
+        String vehiclePlate) {
 }

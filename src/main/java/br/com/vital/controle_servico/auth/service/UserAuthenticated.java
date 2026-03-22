@@ -21,6 +21,14 @@ public class UserAuthenticated implements UserDetails {
         return authUser.getAuthorities();
     }
 
+    public String getEmail() {
+        return authUser.getEmail();
+    }
+
+    public String getTenantId() {
+        return authUser.getTenantId();
+    }
+
     @Override
     public String getPassword() {
         return authUser.getPassword();

@@ -42,9 +42,15 @@ public class Customer {
     private String documentNumber;
 
     @EqualsExclude
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", referencedColumnName = "customer_id")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
+
+    public void setAddress(Address address) {
+        this.address = address;
+        if (address != null) {
+            address.setCustomer(this);
+        }
+    }
 
     private String email;
 
@@ -76,7 +82,15 @@ public class Customer {
         this.email = customer.email;
         this.phoneNumber = customer.phoneNumber;
         this.updatedAt = ZonedDateTime.now();
-        this.address = customer.address;
+        
+        if (customer.address != null) {
+            if (this.address == null) {
+                this.setAddress(customer.address);
+            } else {
+                this.address.merge(customer.address);
+            }
+        }
+        
         return this;
     }
 

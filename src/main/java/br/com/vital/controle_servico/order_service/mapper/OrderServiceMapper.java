@@ -52,7 +52,9 @@ public class OrderServiceMapper {
                 orderService.getCustomerComplaint(),
                 orderService.getInspectionNotes(),
                 orderService.getAiDamageReport(),
-                orderService.getQuantityItems());
+                orderService.getQuantityItems(),
+                orderService.getDateStart(),
+                orderService.getVehicle().getLicensePlate());
     }
 
 }

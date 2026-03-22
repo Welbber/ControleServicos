@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public record VehicleResponseDTO(
         UUID id,
+        UUID tenantId,
+        UUID customerId,
         String customerName,
         String brand,
         String model,

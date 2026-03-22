@@ -20,10 +20,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         log.info("Request authenticate for user {}", username);
         var user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+                .orElseGet(() -> userRepository.findByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado.")));
         var authUser = new AuthUser(user);
         return new UserAuthenticated(authUser);
     }
-
 
 }

@@ -59,4 +59,14 @@ public class Vehicle {
     @Column(name = "fuel_type")
     private FuelType fuelType;
 
+    public Vehicle merge(Vehicle vehicle) {
+        this.brand = vehicle.brand;
+        this.model = vehicle.model;
+        this.color = vehicle.color;
+        this.licensePlate = vehicle.licensePlate;
+        this.year = vehicle.year;
+        this.fuelType = vehicle.fuelType;
+        return this;
+    }
+
 }

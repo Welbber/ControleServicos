@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public record CustomerResponseDTO(
         UUID id,
+        UUID tenantId,
         String name,
         String phoneNumber,
         String email,

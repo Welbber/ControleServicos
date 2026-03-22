@@ -46,8 +46,8 @@ public class OrderServiceController {
 
     @IsRead
     @GetMapping
-    public ResponseEntity<Slice<OrderServiceResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Slice<OrderServiceResponseDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                                  @RequestParam(name = "size", defaultValue = "10") int size,
                                                                   @RequestParam(name = "customer", required = false) String customer,
                                                                   @RequestParam(name = "description", required = false) String description,
                                                                   @RequestParam(name = "plate", required = false) String plate,

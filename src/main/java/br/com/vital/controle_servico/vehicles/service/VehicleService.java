@@ -31,7 +31,7 @@ public class VehicleService {
     @Transactional
     public VehicleResponseDTO save(VehicleRequestDTO vehicleRequestDTO) {
         log.info("Save received vehicle to save: {}", vehicleRequestDTO);
-        if (repository.existByLicensePlate(vehicleRequestDTO.plate())) {
+        if (repository.existsByLicensePlate(vehicleRequestDTO.plate())) {
             log.info("Vehicle already exists with License Plate: {}, ignore request", vehicleRequestDTO.plate());
             throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
         }
@@ -73,9 +73,29 @@ public class VehicleService {
     }
 
     @Transactional
+    public VehicleResponseDTO update(UUID id, VehicleRequestDTO vehicleRequestDTO) {
+        log.info("Update received vehicle with id {}: {}", id, vehicleRequestDTO);
+        var vehicle = repository.findById(id)
+                .orElseThrow(VehicleNotFoundException::new);
+
+        if (!vehicle.getLicensePlate().equals(vehicleRequestDTO.plate()) &&
+            repository.existsByLicensePlate(vehicleRequestDTO.plate())) {
+            log.info("Vehicle already exists with License Plate: {}, ignore update request", vehicleRequestDTO.plate());
+            throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
+        }
+
+        var newVehicle = VehicleMapper.toVehicle(vehicleRequestDTO);
+        var mergedVehicle = vehicle.merge(newVehicle);
+        
+        log.info("Vehicle updated: {}", mergedVehicle);
+        repository.saveAndFlush(mergedVehicle);
+        return VehicleMapper.toVehicleDTO(mergedVehicle);
+    }
+
     public Boolean delete(UUID id) {
         log.info("Delete received vehicle by id: {}", id);
         repository.deleteById(id);
         return true;
     }
+
 }

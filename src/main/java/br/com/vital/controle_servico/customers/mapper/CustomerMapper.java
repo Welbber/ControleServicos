@@ -8,12 +8,15 @@ import br.com.vital.controle_servico.customers.dto.CustomerResponseDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerMapper {
 
     public static CustomerResponseDTO toCustomerDTO(Customer customer) {
         return new CustomerResponseDTO(
                 customer.getId(),
+                customer.getTenantId(),
                 customer.getName(),
                 customer.getPhoneNumber(),
                 customer.getEmail(),
@@ -22,13 +25,19 @@ public class CustomerMapper {
     }
 
     public static Customer toCustomer(CustomerRequestDTO customerRequestDTO) {
-        return Customer.builder()
+        Customer customer = Customer.builder()
                 .name(customerRequestDTO.name())
+                .tenantId(UUID.fromString(customerRequestDTO.tenantId()))
                 .email(customerRequestDTO.email())
                 .documentNumber(customerRequestDTO.documentNumber())
                 .phoneNumber(customerRequestDTO.phoneNumber())
-                .address(toAddress(customerRequestDTO.address()))
                 .build();
+        
+        if (customerRequestDTO.address() != null) {
+            customer.setAddress(toAddress(customerRequestDTO.address()));
+        }
+        
+        return customer;
     }
 
     private static Address toAddress(AddressDTO address) {

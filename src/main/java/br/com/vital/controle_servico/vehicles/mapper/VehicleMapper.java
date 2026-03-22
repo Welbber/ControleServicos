@@ -8,12 +8,16 @@ import br.com.vital.controle_servico.vehicles.dto.VehicleResponseDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VehicleMapper {
 
     public static VehicleResponseDTO toVehicleDTO(Vehicle vehicle) {
         return new VehicleResponseDTO(
                 vehicle.getId(),
+                vehicle.getTenantId(),
+                vehicle.getCustomer().getId(),
                 vehicle.getCustomer().getName(),
                 vehicle.getBrand(),
                 vehicle.getModel(),
@@ -27,6 +31,7 @@ public class VehicleMapper {
     public static Vehicle toVehicle(VehicleRequestDTO vehicleRequestDTO) {
         return Vehicle.builder()
                 .customer(toCustomer(vehicleRequestDTO.customerVehicle()))
+                .tenantId(UUID.fromString(vehicleRequestDTO.tenantId()))
                 .brand(vehicleRequestDTO.brand())
                 .model(vehicleRequestDTO.model())
                 .color(vehicleRequestDTO.color())

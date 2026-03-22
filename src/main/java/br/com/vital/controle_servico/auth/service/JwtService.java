@@ -23,22 +23,38 @@ public class JwtService {
 
     public String generateToken(Authentication authentication) {
         Instant now = Instant.now();
-        Instant expiring = now.plusSeconds(900L);//15min
+        Instant expiring = now.plusSeconds(900L);// 15min
 
-        var claims = JwtClaimsSet.builder()
+        String email = authentication.getName();
+        String tenantId = null;
+
+        if (authentication.getPrincipal() instanceof br.com.vital.controle_servico.auth.dto.AuthUser authUser) {
+            email = authUser.getEmail();
+            tenantId = authUser.getTenantId();
+        } else if (authentication.getPrincipal() instanceof br.com.vital.controle_servico.auth.service.UserAuthenticated userAuthenticated) {
+            email = userAuthenticated.getEmail();
+            tenantId = userAuthenticated.getTenantId();
+        }
+
+        var claimsBuilder = JwtClaimsSet.builder()
                 .issuer("controle-frontend")
                 .subject(authentication.getName())
                 .issuedAt(now)
                 .expiresAt(expiring)
-                .claim("email", authentication.getName())
-                .claim("permissions", authentication.getAuthorities())
-                .build();
+                .claim("email", email)
+                .claim("permissions", authentication.getAuthorities());
+
+        if (tenantId != null) {
+            claimsBuilder.claim("tenantId", tenantId);
+        }
+
+        var claims = claimsBuilder.build();
 
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, "email");
+        return decoder.decode(token).getSubject();
     }
 
     public Instant extractExpiration(String token) {

@@ -3,6 +3,7 @@ package br.com.vital.controle_servico.vehicles.controller;
 import br.com.vital.controle_servico.auth.annotation.IsCreate;
 import br.com.vital.controle_servico.auth.annotation.IsDelete;
 import br.com.vital.controle_servico.auth.annotation.IsRead;
+import br.com.vital.controle_servico.auth.annotation.IsUpdate;
 import br.com.vital.controle_servico.vehicles.dto.VehicleFilterDTO;
 import br.com.vital.controle_servico.vehicles.dto.VehicleRequestDTO;
 import br.com.vital.controle_servico.vehicles.dto.VehicleResponseDTO;
@@ -30,8 +31,8 @@ public class VehicleController {
 
     @IsRead
     @GetMapping
-    public ResponseEntity<Slice<VehicleResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Slice<VehicleResponseDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                             @RequestParam(name = "size", defaultValue = "10") int size,
                                                              @RequestParam(name = "plate", required = false) String plate,
                                                              @RequestParam(name = "brand", required = false) String brand,
                                                              @RequestParam(name = "model", required = false) String model,
@@ -53,8 +54,14 @@ public class VehicleController {
 
     @IsRead
     @GetMapping(value = "/{id}")
-    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable(name = "id") UUID id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
+    @IsUpdate
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<VehicleResponseDTO> update(@PathVariable(name = "id") UUID id, @Valid @RequestBody VehicleRequestDTO vehicleRequestDTO) {
+        return ResponseEntity.ok(service.update(id, vehicleRequestDTO));
     }
 
     @IsCreate
@@ -65,7 +72,7 @@ public class VehicleController {
 
     @IsDelete
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable UUID id) {
+    public ResponseEntity<Boolean> delete(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
     

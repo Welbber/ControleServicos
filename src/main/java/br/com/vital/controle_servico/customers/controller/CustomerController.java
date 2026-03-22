@@ -30,8 +30,8 @@ public class CustomerController {
 
     @IsRead
     @GetMapping
-    public ResponseEntity<Slice<CustomerResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                              @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Slice<CustomerResponseDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "size", defaultValue = "10") int size,
                                                               @RequestParam(name = "documentNumber", required = false) String documentNumber,
                                                               @RequestParam(name = "name", required = false) String name,
                                                               @RequestParam(name = "email", required = false) String email) {
@@ -45,7 +45,7 @@ public class CustomerController {
 
     @IsRead
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<CustomerResponseDTO> findById(@PathVariable(name = "id") UUID id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
@@ -57,25 +57,25 @@ public class CustomerController {
 
     @IsUpdate
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> update(@PathVariable UUID id, @RequestBody CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<CustomerResponseDTO> update(@PathVariable(name = "id") UUID id, @RequestBody CustomerRequestDTO customerRequestDTO) {
         return ResponseEntity.ok().body(service.update(id, customerRequestDTO));
     }
 
     @IsUpdate
     @PatchMapping("{id}/active")
-    public ResponseEntity<CustomerStatusResponseDTO> activate(@PathVariable UUID id) {
+    public ResponseEntity<CustomerStatusResponseDTO> activate(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.ok().body(service.activeCustomer(id, Boolean.TRUE));
     }
 
     @IsUpdate
     @PatchMapping("{id}/inactive")
-    public ResponseEntity<CustomerStatusResponseDTO> inactive(@PathVariable UUID id) {
+    public ResponseEntity<CustomerStatusResponseDTO> inactive(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.ok().body(service.inactiveCustomer(id, Boolean.FALSE));
     }
     
     @IsDelete
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable UUID id) {
+    public ResponseEntity<Boolean> delete(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
 
