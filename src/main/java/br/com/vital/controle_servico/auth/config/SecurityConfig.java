@@ -76,7 +76,12 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .httpBasic(Customizer.withDefaults())
-                // .oauth2ResourceServer(conf -> conf.jwt(jwt -> jwt.decoder(jwtDecoder())))
+                // O oauth2ResourceServer declarativo não é usado: a validação completa do JWT
+                // (assinatura via jwtDecoder() com a chave pública RSA + expiração) já é feita
+                // em JwtAuthFilter, que popula o SecurityContext com UserAuthenticated/AuthUser
+                // (necessário para @IsRead/@IsCreate/... e para o TenantFilter resolver o tenant).
+                // Habilitar oauth2ResourceServer adicionaria um filtro concorrente que autentica
+                // via JwtAuthenticationToken (principal Jwt), incompatível com esse modelo.
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

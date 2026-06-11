@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 public interface OrderAiIntegrationService {
-    
-    OrderServiceResponseDTO createDraftOrderByAudio(UUID customerId, UUID vehicleId, UUID tenantId, MultipartFile audio);
+
+    OrderServiceResponseDTO createDraftOrderByAudio(UUID customerId, UUID vehicleId, MultipartFile audio);
 }

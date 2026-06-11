@@ -22,10 +22,9 @@ public class OrderServiceVoiceController {
     public ResponseEntity<OrderServiceResponseDTO> createDraftOrderByAudio(
             @RequestParam("customerId") UUID customerId,
             @RequestParam("vehicleId") UUID vehicleId,
-            @RequestParam("tenantId") UUID tenantId,
             @RequestParam("audio") MultipartFile audio) {
 
-        OrderServiceResponseDTO response = orderAiIntegrationService.createDraftOrderByAudio(customerId, vehicleId, tenantId, audio);
+        OrderServiceResponseDTO response = orderAiIntegrationService.createDraftOrderByAudio(customerId, vehicleId, audio);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
