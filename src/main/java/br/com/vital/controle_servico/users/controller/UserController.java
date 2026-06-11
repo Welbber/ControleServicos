@@ -31,7 +31,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Map<String, String>> registerEmployee(@RequestBody UserRegistrationDTO dto) {
         
-        // Tenant automaticamente resolvido via Listener baseado no Context atual se o Header X-Tenant-ID foi passado (ou futuramente do token jwt)
+        // Tenant resolvido automaticamente pelo TenantFilter a partir do claim "tenantId" do JWT do usuário autenticado
         UUID currentTenant = TenantContext.getTenantId();
         
         if (currentTenant == null) {

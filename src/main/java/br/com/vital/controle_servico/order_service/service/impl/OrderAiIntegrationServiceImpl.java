@@ -11,6 +11,8 @@ import br.com.vital.controle_servico.order_service.dto.OrderServiceResponseDTO;
 import br.com.vital.controle_servico.order_service.mapper.OrderServiceMapper;
 import br.com.vital.controle_servico.order_service.repository.OrderServiceRepository;
 import br.com.vital.controle_servico.order_service.service.OrderAiIntegrationService;
+import br.com.vital.controle_servico.tenants.config.TenantContext;
+import br.com.vital.controle_servico.common.exception.UnauthorizedException;
 import br.com.vital.controle_servico.vehicles.domain.Vehicle;
 import br.com.vital.controle_servico.vehicles.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +35,18 @@ public class OrderAiIntegrationServiceImpl implements OrderAiIntegrationService 
 
     @Override
     @Transactional
-    public OrderServiceResponseDTO createDraftOrderByAudio(UUID customerId, UUID vehicleId, UUID tenantId, MultipartFile audio) {
+    public OrderServiceResponseDTO createDraftOrderByAudio(UUID customerId, UUID vehicleId, MultipartFile audio) {
+        UUID tenantId = TenantContext.getTenantId();
+        if (tenantId == null) {
+            throw new UnauthorizedException();
+        }
+
         Customer customer = customerRepository.findById(customerId)
+                .filter(c -> tenantId.equals(c.getTenantId()))
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
 
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
+                .filter(v -> tenantId.equals(v.getTenantId()))
                 .orElseThrow(() -> new IllegalArgumentException("Vehicle not found with ID: " + vehicleId));
 
         ExtractedOrderDataDTO aiData = voiceProcessingService.processAudioToOrderData(audio);
