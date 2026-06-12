@@ -1,6 +1,10 @@
 package br.com.vital.controle_servico.customers.domain;
 
+import br.com.vital.controle_servico.tenants.config.TenantEntityListener;
 import br.com.vital.controle_servico.vehicles.domain.Vehicle;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsExclude;
@@ -10,20 +14,27 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
 @Entity
 @DynamicUpdate
 @Table(name = "customers")
+@EntityListeners(TenantEntityListener.class)
+@FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = java.util.UUID.class)})
+@Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "tenant_id", nullable = false, updatable = false)
+    private UUID tenantId;
 
     private String name;
 
@@ -31,9 +42,15 @@ public class Customer {
     private String documentNumber;
 
     @EqualsExclude
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", referencedColumnName = "customer_id")
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
+
+    public void setAddress(Address address) {
+        this.address = address;
+        if (address != null) {
+            address.setCustomer(this);
+        }
+    }
 
     private String email;
 
@@ -56,7 +73,7 @@ public class Customer {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private List<Vehicle> vehicles;
 
-    public Customer(Long id) {
+    public Customer(UUID id) {
         this.id = id;
     }
 
@@ -65,7 +82,15 @@ public class Customer {
         this.email = customer.email;
         this.phoneNumber = customer.phoneNumber;
         this.updatedAt = ZonedDateTime.now();
-        this.address = customer.address;
+        
+        if (customer.address != null) {
+            if (this.address == null) {
+                this.setAddress(customer.address);
+            } else {
+                this.address.merge(customer.address);
+            }
+        }
+        
         return this;
     }
 

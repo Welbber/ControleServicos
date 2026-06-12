@@ -22,6 +22,12 @@ public class OrderServiceMapper {
                 .amount(getAmountTotal(orderServiceRequestDTO))
                 .kmVehicleAt(orderServiceRequestDTO.kmVehicleAt())
                 .dateStart(orderServiceRequestDTO.dateStart())
+                .partsCost(orderServiceRequestDTO.partsCost())
+                .laborCost(orderServiceRequestDTO.laborCost())
+                .discountAmount(orderServiceRequestDTO.discountAmount())
+                .customerComplaint(orderServiceRequestDTO.customerComplaint())
+                .inspectionNotes(orderServiceRequestDTO.inspectionNotes())
+                .aiDamageReport(orderServiceRequestDTO.aiDamageReport())
                 .build();
     }
 
@@ -40,7 +46,15 @@ public class OrderServiceMapper {
                 orderService.getStatus(),
                 orderService.getCustomer().getName(),
                 orderService.getAmount(),
-                orderService.getQuantityItems());
+                orderService.getPartsCost(),
+                orderService.getLaborCost(),
+                orderService.getDiscountAmount(),
+                orderService.getCustomerComplaint(),
+                orderService.getInspectionNotes(),
+                orderService.getAiDamageReport(),
+                orderService.getQuantityItems(),
+                orderService.getDateStart(),
+                orderService.getVehicle().getLicensePlate());
     }
 
 }

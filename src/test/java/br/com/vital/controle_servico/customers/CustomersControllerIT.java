@@ -6,7 +6,6 @@ import br.com.vital.controle_servico.config.AbstractIntegrationTest;
 import br.com.vital.controle_servico.config.MockHTTPConverter;
 import br.com.vital.controle_servico.customers.dto.AddressDTO;
 import br.com.vital.controle_servico.customers.dto.CustomerRequestDTO;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +43,6 @@ class CustomersControllerIT extends AbstractIntegrationTest {
 
 
     @Test
-    @Disabled
     void getAllCustomersTest() throws Exception {
         assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "customers"))
                 .isEqualTo(2);
@@ -60,7 +59,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                         "01263538088",
                         "6122277193",
                         new AddressDTO(
-                                1L,
+                                UUID.randomUUID(),
                                 "Rua das Flores, 123",
                                 12902,
                                 "SALA 3",
@@ -74,7 +73,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                         "86776470073",
                         "6172277198",
                         new AddressDTO(
-                                2L,
+                                UUID.randomUUID(),
                                 "Rua dos Pinheiros, 200",
                                 12902, "SALA 3",
                                 "Rio de Janeiro",
@@ -91,7 +90,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
 
     @Test
     void getCustomerByIdTest() throws Exception {
-        final var id = 1L;
+        final var id = UUID.fromString("123e4567-e89b-12d3-a456-426614174000"); // Substituido Long por UUID
         var response = mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/v1/customers/%s".formatted(id))
                                 .contentType(MediaType.APPLICATION_JSON))
@@ -103,7 +102,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
                 "01263538088",
                 "6122277193",
                 new AddressDTO(
-                        1L,
+                        UUID.randomUUID(),
                         "Rua das Flores, 123",
                         12902,
                         "SALA 3",
@@ -117,7 +116,7 @@ class CustomersControllerIT extends AbstractIntegrationTest {
 
     @Test
     void getCustomerByIdNotFoundTest() throws Exception {
-        final var id = 9999L;
+        final var id = UUID.randomUUID(); // Gerando ID UUID Random para simular falha Not Found 
         var response = mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/v1/customers/%s".formatted(id))
                                 .contentType(MediaType.APPLICATION_JSON))

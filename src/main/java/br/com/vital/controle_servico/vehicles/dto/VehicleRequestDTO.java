@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 public record VehicleRequestDTO(
         @Valid
         CustomerVehicleDTO customerVehicle,
+        @NotNull(message = "O tenant id é obrigatório")
+        String tenantId,
         String brand,
         String model,
         @NotNull(message = "A placa do veículo é obrigatório")

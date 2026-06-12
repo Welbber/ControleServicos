@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -30,7 +31,7 @@ public class VehicleService {
     @Transactional
     public VehicleResponseDTO save(VehicleRequestDTO vehicleRequestDTO) {
         log.info("Save received vehicle to save: {}", vehicleRequestDTO);
-        if (repository.existByLicensePlate(vehicleRequestDTO.plate())) {
+        if (repository.existsByLicensePlate(vehicleRequestDTO.plate())) {
             log.info("Vehicle already exists with License Plate: {}, ignore request", vehicleRequestDTO.plate());
             throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
         }
@@ -40,7 +41,7 @@ public class VehicleService {
     }
 
     @Transactional(readOnly = true)
-    public VehicleResponseDTO findById(Long id) {
+    public VehicleResponseDTO findById(UUID id) {
         log.info("Find vehicle by id: {}", id);
         return repository.findById(id)
                 .map(VehicleMapper::toVehicleDTO)
@@ -59,7 +60,7 @@ public class VehicleService {
         return vehicles.map(VehicleMapper::toVehicleDTO);
     }
 
-    public List<VehicleResponseDTO> findAllByCustomer(Long customerId) {
+    public List<VehicleResponseDTO> findAllByCustomer(UUID customerId) {
         log.info("Find all vehicles by customer id: {}", customerId);
         var vehicles = repository.findByCustomerId(customerId);
         if (vehicles.isEmpty()) {
@@ -72,9 +73,29 @@ public class VehicleService {
     }
 
     @Transactional
-    public Boolean delete(Long id) {
+    public VehicleResponseDTO update(UUID id, VehicleRequestDTO vehicleRequestDTO) {
+        log.info("Update received vehicle with id {}: {}", id, vehicleRequestDTO);
+        var vehicle = repository.findById(id)
+                .orElseThrow(VehicleNotFoundException::new);
+
+        if (!vehicle.getLicensePlate().equals(vehicleRequestDTO.plate()) &&
+            repository.existsByLicensePlate(vehicleRequestDTO.plate())) {
+            log.info("Vehicle already exists with License Plate: {}, ignore update request", vehicleRequestDTO.plate());
+            throw new VehicleAlreadyExistsException("Veículo já existe com a placa: %s".formatted(vehicleRequestDTO.plate()));
+        }
+
+        var newVehicle = VehicleMapper.toVehicle(vehicleRequestDTO);
+        var mergedVehicle = vehicle.merge(newVehicle);
+        
+        log.info("Vehicle updated: {}", mergedVehicle);
+        repository.saveAndFlush(mergedVehicle);
+        return VehicleMapper.toVehicleDTO(mergedVehicle);
+    }
+
+    public Boolean delete(UUID id) {
         log.info("Delete received vehicle by id: {}", id);
         repository.deleteById(id);
         return true;
     }
+
 }

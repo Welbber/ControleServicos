@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 public record CustomerRequestDTO(
         @NotNull(message = "Nome do cliente é obrigatório")
         String name,
+        @NotNull(message = "Tenant Id é obrigatório")
+        String tenantId,
         @Size(max = 11, message = "Número máximo do telefone é 11 digitos")
         String phoneNumber,
         @NotNull(message = "E-mail do cliente é obrigatório")

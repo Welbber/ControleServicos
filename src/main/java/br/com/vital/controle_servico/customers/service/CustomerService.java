@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -42,7 +43,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerResponseDTO findById(Long id) {
+    public CustomerResponseDTO findById(UUID id) {
         log.info("Find customer by id: {}", id);
         return repository.findById(id)
                 .map(CustomerMapper::toCustomerDTO)
@@ -63,7 +64,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerResponseDTO update(Long id, CustomerRequestDTO customerRequestDTO) {
+    public CustomerResponseDTO update(UUID id, CustomerRequestDTO customerRequestDTO) {
         log.info("Update received customer to save: {}", customerRequestDTO);
         repository.findByDocumentNumberAndEmail(customerRequestDTO.documentNumber(), customerRequestDTO.email())
                 .ifPresent(customer -> {
@@ -87,7 +88,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public Boolean delete(Long id) {
+    public Boolean delete(UUID id) {
         log.info("Delete received customer by id: {}", id);
         var customer = repository.findById(id)
                 .map(CustomerMapper::toCustomerDTO)
@@ -97,7 +98,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerStatusResponseDTO activeCustomer(Long id, Boolean status) {
+    public CustomerStatusResponseDTO activeCustomer(UUID id, Boolean status) {
         log.info("Active received customer {} status to save: {}", id, status);
         var customer = repository.findById(id).orElseThrow(CustomerNotFoundException::new);
         customer.active();
@@ -107,7 +108,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerStatusResponseDTO inactiveCustomer(Long id, Boolean status) {
+    public CustomerStatusResponseDTO inactiveCustomer(UUID id, Boolean status) {
         log.info("Inactive received customer {} status to save: {}", id, status);
         var customer = repository.findById(id).orElseThrow(CustomerNotFoundException::new);
         customer.inactive();

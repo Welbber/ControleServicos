@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @PreAuthorize("isAuthenticated()")
 @Validated
@@ -46,7 +47,7 @@ public class ItemController {
 
     @IsRead
     @GetMapping("/{id}")
-    public ResponseEntity<ItemResponseDTO> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<ItemResponseDTO> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.ok().body(itemService.findById(id));
     }
 
@@ -58,13 +59,13 @@ public class ItemController {
 
     @IsUpdate
     @PutMapping("/{id}")
-    public ResponseEntity<ItemResponseDTO> update(@PathVariable("id") Long id, ItemRequestDTO itemRequestDTO) {
+    public ResponseEntity<ItemResponseDTO> update(@PathVariable("id") UUID id, ItemRequestDTO itemRequestDTO) {
         return ResponseEntity.ok().body(itemService.update(id, itemRequestDTO));
     }
 
     @IsDelete
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(itemService.delete(id));
     }
 

@@ -1,6 +1,7 @@
 package br.com.vital.controle_servico.order_service.domain;
 
 import br.com.vital.controle_servico.customers.domain.Customer;
+import br.com.vital.controle_servico.tenants.config.TenantEntityListener;
 import br.com.vital.controle_servico.vehicles.domain.Vehicle;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Builder
@@ -19,14 +21,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "order_service")
 @DynamicUpdate
+@EntityListeners(TenantEntityListener.class)
+@org.hibernate.annotations.Filter(name = "tenantFilter", condition = "tenant_id = :tenantId")
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderService {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "tenant_id", nullable = false, updatable = false)
+    private UUID tenantId;
 
     private String description;
 
@@ -37,15 +44,33 @@ public class OrderService {
     @Enumerated(EnumType.STRING)
     private OrderServiceStatus status;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     private BigDecimal amount;
+
+    @Column(name = "parts_cost")
+    private BigDecimal partsCost;
+
+    @Column(name = "labor_cost")
+    private BigDecimal laborCost;
+
+    @Column(name = "discount_amount")
+    private BigDecimal discountAmount;
+
+    @Column(name = "customer_complaint", columnDefinition = "TEXT")
+    private String customerComplaint;
+
+    @Column(name = "inspection_notes", columnDefinition = "TEXT")
+    private String inspectionNotes;
+
+    @Column(name = "ai_damage_report", columnDefinition = "TEXT")
+    private String aiDamageReport;
 
     @Column(name = "quantity_itens")
     private Integer quantityItems;

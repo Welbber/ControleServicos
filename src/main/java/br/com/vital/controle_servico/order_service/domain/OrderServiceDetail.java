@@ -4,8 +4,10 @@ import br.com.vital.controle_servico.itens.domain.Item;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import br.com.vital.controle_servico.tenants.config.TenantEntityListener;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -13,13 +15,17 @@ import java.math.BigDecimal;
 @EqualsAndHashCode
 @Entity
 @Table(name = "order_service_detail_itens")
+@EntityListeners(TenantEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class OrderServiceDetail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(name = "tenant_id", nullable = false, updatable = false)
+    private UUID tenantId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_service_id", referencedColumnName = "id")

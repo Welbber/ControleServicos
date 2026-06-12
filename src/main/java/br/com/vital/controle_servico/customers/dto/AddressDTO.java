@@ -2,8 +2,9 @@ package br.com.vital.controle_servico.customers.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import java.util.UUID;
 
-public record AddressDTO(Long id,
+public record AddressDTO(UUID id,
                          String street,
                          Integer number,
                          String complement,

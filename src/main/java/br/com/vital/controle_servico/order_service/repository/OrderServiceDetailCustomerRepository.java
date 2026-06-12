@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Slf4j
@@ -26,7 +27,7 @@ public class OrderServiceDetailCustomerRepository {
     private final ObjectMapper objectMapper;
 
     @Transactional(readOnly = true)
-    public DetailOrderServiceResponseDTO findByOrderServiceId(Long orderServiceId) {
+    public DetailOrderServiceResponseDTO findByOrderServiceId(UUID orderServiceId) {
         Session session = manager.unwrap(Session.class);
         String sql = """
                               SELECT os.id,
@@ -63,14 +64,14 @@ public class OrderServiceDetailCustomerRepository {
 
     private DetailOrderServiceResponseDTO mapper(Object[] result) {
         return new DetailOrderServiceResponseDTO(
-                Long.parseLong(result[0].toString()),
+                UUID.fromString(result[0].toString()),
                 result[1].toString(),
                 BigDecimal.valueOf(Double.parseDouble(result[2].toString())),
                 Integer.parseInt(result[3].toString()),
                 Integer.parseInt(result[4].toString()),
                 OrderServiceType.valueOf(result[5].toString()),
                 OrderServiceStatus.valueOf(result[6].toString()),
-                Long.parseLong(result[7].toString()),
+                UUID.fromString(result[7].toString()),
                 result[8].toString(),
                 result[9].toString(),
                 result[10].toString(),

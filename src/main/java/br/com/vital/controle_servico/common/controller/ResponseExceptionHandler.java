@@ -55,7 +55,9 @@ public class ResponseExceptionHandler extends DefaultHandlerExceptionResolver {
             CustomerAlreadyExistsException.class,
             ItemAlreadyExistsException.class,
             VehicleNotBelongToCustomer.class,
-            IllegalStateException.class
+            IllegalStateException.class,
+            br.com.vital.controle_servico.tenants.exception.TenantAlreadyExistsException.class,
+            br.com.vital.controle_servico.users.exception.UserAlreadyExistsException.class
     })
     public ResponseEntity<Object> handleArgumentStateBadRequest(final RuntimeException ex) {
         final var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());

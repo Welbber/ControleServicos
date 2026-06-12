@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @org.springframework.stereotype.Repository
-public interface CustomerRepository extends Repository<Customer, Long> {
+public interface CustomerRepository extends Repository<Customer, UUID> {
 
     @Transactional(readOnly = true)
-    Optional<Customer> findById(Long id);
+    Optional<Customer> findById(UUID id);
 
     @Transactional
     Customer saveAndFlush(Customer customer);
@@ -26,7 +27,7 @@ public interface CustomerRepository extends Repository<Customer, Long> {
     boolean existByDocumentNumberAndEmail(@Param("documentNumber") String documentNumber, @Param("email") String email);
 
     @Transactional
-    void deleteById(long id);
+    void deleteById(UUID id);
 
     @Transactional(readOnly = true)
     Optional<Customer> findByDocumentNumberAndEmail(String documentNumber, String email);

@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -33,20 +34,20 @@ public class OrderServiceController {
 
     @IsCreate
     @PostMapping("/customer/{customerId}")
-    public ResponseEntity<OrderServiceResponseDTO> createOrder(@PathVariable("customerId") Long customerId, @Valid @RequestBody OrderServiceRequestDTO order) {
+    public ResponseEntity<OrderServiceResponseDTO> createOrder(@PathVariable("customerId") UUID customerId, @Valid @RequestBody OrderServiceRequestDTO order) {
         return ResponseEntity.status(HttpStatus.CREATED).body(newOrderServiceService.save(customerId, order));
     }
 
     @IsRead
     @GetMapping("/{id}")
-    public ResponseEntity<DetailOrderServiceResponseDTO> detailOrder(@PathVariable("id") Long orderServiceId) {
+    public ResponseEntity<DetailOrderServiceResponseDTO> detailOrder(@PathVariable("id") UUID orderServiceId) {
         return ResponseEntity.ok().body(detailOrderServiceService.detail(orderServiceId));
     }
 
     @IsRead
     @GetMapping
-    public ResponseEntity<Slice<OrderServiceResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                                  @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Slice<OrderServiceResponseDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                                  @RequestParam(name = "size", defaultValue = "10") int size,
                                                                   @RequestParam(name = "customer", required = false) String customer,
                                                                   @RequestParam(name = "description", required = false) String description,
                                                                   @RequestParam(name = "plate", required = false) String plate,
@@ -71,7 +72,7 @@ public class OrderServiceController {
 
     @IsRead
     @GetMapping("/{id}/pdf")
-    public ResponseEntity<byte[]> exportPdf(@PathVariable("id") Long id) {
+    public ResponseEntity<byte[]> exportPdf(@PathVariable("id") UUID id) {
         var pdf = detailOrderServiceService.exportPdf(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);

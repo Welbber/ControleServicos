@@ -3,6 +3,7 @@ package br.com.vital.controle_servico.vehicles.controller;
 import br.com.vital.controle_servico.auth.annotation.IsCreate;
 import br.com.vital.controle_servico.auth.annotation.IsDelete;
 import br.com.vital.controle_servico.auth.annotation.IsRead;
+import br.com.vital.controle_servico.auth.annotation.IsUpdate;
 import br.com.vital.controle_servico.vehicles.dto.VehicleFilterDTO;
 import br.com.vital.controle_servico.vehicles.dto.VehicleRequestDTO;
 import br.com.vital.controle_servico.vehicles.dto.VehicleResponseDTO;
@@ -18,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
@@ -29,8 +31,8 @@ public class VehicleController {
 
     @IsRead
     @GetMapping
-    public ResponseEntity<Slice<VehicleResponseDTO>> findAll(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Slice<VehicleResponseDTO>> findAll(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                             @RequestParam(name = "size", defaultValue = "10") int size,
                                                              @RequestParam(name = "plate", required = false) String plate,
                                                              @RequestParam(name = "brand", required = false) String brand,
                                                              @RequestParam(name = "model", required = false) String model,
@@ -46,14 +48,20 @@ public class VehicleController {
 
     @IsRead
     @GetMapping("/customer/{id}")
-    public ResponseEntity<List<VehicleResponseDTO>> findAll(@PathVariable(name = "id") Long customerId) {
+    public ResponseEntity<List<VehicleResponseDTO>> findAll(@PathVariable(name = "id") UUID customerId) {
         return new ResponseEntity<>(service.findAllByCustomer(customerId), HttpStatus.OK);
     }
 
     @IsRead
     @GetMapping(value = "/{id}")
-    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<VehicleResponseDTO> findById(@PathVariable(name = "id") UUID id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+    }
+
+    @IsUpdate
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<VehicleResponseDTO> update(@PathVariable(name = "id") UUID id, @Valid @RequestBody VehicleRequestDTO vehicleRequestDTO) {
+        return ResponseEntity.ok(service.update(id, vehicleRequestDTO));
     }
 
     @IsCreate
@@ -64,7 +72,7 @@ public class VehicleController {
 
     @IsDelete
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable(name = "id") UUID id) {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
     }
     

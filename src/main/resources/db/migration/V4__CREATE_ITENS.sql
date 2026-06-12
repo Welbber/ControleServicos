@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS itens(
-                                    id SERIAL NOT NULL,
+                                    id UUID NOT NULL DEFAULT gen_random_uuid(),
                                     code VARCHAR(100),
     description VARCHAR(255) NOT NULL,
     type    VARCHAR(50) NOT NULL,

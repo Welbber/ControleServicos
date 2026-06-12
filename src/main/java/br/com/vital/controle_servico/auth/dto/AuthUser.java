@@ -11,14 +11,18 @@ import java.util.stream.Collectors;
 @Getter
 public class AuthUser extends User {
 
+    private final String email;
+    private final String tenantId;
+
     public AuthUser(br.com.vital.controle_servico.users.domain.User user) {
         super(user.getUsername(), user.getPassword(), getAuthorities(user));
+        this.email = user.getEmail();
+        this.tenantId = user.getTenant() != null ? user.getTenant().getId().toString() : null;
     }
 
     private static Collection<GrantedAuthority> getAuthorities(br.com.vital.controle_servico.users.domain.User user) {
         return user.getRoles()
-                .stream().
-                flatMap(role -> role.getPermissions().stream())
+                .stream().flatMap(role -> role.getPermissions().stream())
                 .map(permission -> new SimpleGrantedAuthority(permission.getName().toUpperCase()))
                 .collect(Collectors.toSet());
     }

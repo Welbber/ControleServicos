@@ -4,7 +4,9 @@ import br.com.vital.controle_servico.itens.domain.ItemType;
 
 import java.math.BigDecimal;
 
-public record ItemResponseDTO(Long id,
+import java.util.UUID;
+
+public record ItemResponseDTO(UUID id,
                               String code,
                               String description,
                               ItemType type,
